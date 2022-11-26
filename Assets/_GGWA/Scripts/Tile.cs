@@ -6,6 +6,11 @@ using MyBox;
 
 public class Tile : MonoBehaviour
 {
+    public static bool isBibierTried;
+    public static bool isBiberSuccessed;
+    public static bool isHumanTried;
+    public static bool isHumanSuccessed;
+
 
     private char tileHotKey;
     public TextMeshPro tileHotkeyTextMesh;
@@ -61,76 +66,142 @@ public class Tile : MonoBehaviour
 
     void humanAction() // 플레이어가 타일을 클릭하면 되돌릴 함수 생성.
     {
+        isHumanTried = true;
+
         switch (tileType)
         {
             case "neutrality":
+                tileType = "human";
                 tileCurrentSprite = MapGenerater.S.humanColor;
+                isHumanSuccessed = true;
+
+                tileCurrentColor.color = Color.blue;
+Debug.Log("[Human] To Human");
                 break;
             case "bieber":
+                tileType = "neutrality";
                 tileCurrentSprite = MapGenerater.S.neutralityColor;
+                isHumanSuccessed = true;
+
+                tileCurrentColor.color = Color.yellow;
+Debug.Log("[Human] To Neutrality");
                 break;
             case "human":
+                isHumanSuccessed = true;
                 break;
             default:
-                // 실패 로직
+                // 실패 로직은 LateUpdate 에서!
                 break;
         }
     }
 
     void BiberAction()
     {
-        if (Input.GetKeyDown(currentKey) && tileType =="human")
-        {
-             MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
-        }
-        else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
-        {
+        isBibierTried = true;
 
-            // 비버 영역으로 변경
+        if (Input.GetKeyDown(currentKey))
+        {
+            switch (tileType)
+            {
+                case "neutrality":
+                    tileType = "bieber";
+                    tileCurrentSprite = MapGenerater.S.biberColor;
+                    isBiberSuccessed = true;
+
+                    tileCurrentColor.color = Color.gray;
+Debug.Log("[Biber] To Biber");
+                    break;
+                case "bieber":
+                    isBiberSuccessed = true;
+                    break;
+                case "human":
+                    tileType = "neutrality";
+                    tileCurrentSprite = MapGenerater.S.neutralityColor;
+                    isBiberSuccessed = true;
+
+                    tileCurrentColor.color = Color.yellow;
+Debug.Log("[Biber] To Neutrality");
+                    break;
+                default:
+                    // 실패 로직은 LateUpdate 에서!
+                    break;
+            }
         }
+
+
+
+
+
+        // if (Input.GetKeyDown(currentKey) && tileType =="human")
+        // {
+        //      MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
+        // }
+        // else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
+        // {
+
+        //     // 비버 영역으로 변경
+        // }
         
 
 
 
+        // if (Input.anyKeyDown)
+        // {
+        //     foreach (var key in MapGenerater.S.keyCharPairs)
+        //     {
+        //         if (Input.GetKeyDown(key.Key) && key.Value == tileHotKey)
+        //         {
+        //             if (key.Value == TileHotKey)
+        //             {
+        //                 tileCurrentSprite = MapGenerater.S.biberColor; // 점수 관련 추가
+        //             }
+        //             // 점수 증가, 콤보 감소
+        //             else
+        //             {
+        //             }
+        //         }
 
-        if (Input.anyKeyDown)
-        {
-            foreach (var key in MapGenerater.S.keyCharPairs)
-            {
-                if (Input.GetKeyDown(key.Key) && key.Value == tileHotKey)
-                {
-                    if (key.Value == TileHotKey)
-                    {
-                        tileCurrentSprite = MapGenerater.S.biberColor; // 점수 관련 추가
-                    }
-                    // 점수 증가, 콤보 감소
-                    else
-                    {
-                    }
-                }
-
-            }
-        }
+        //     }
+        // }
     }
+
+
+
+
 
     private void Update()
     {
         u = (Time.timeSinceLevelLoad - spwanedTime) / spwaningTime;
-        BiberAction();
+
+        if (Input.anyKeyDown)
+        {
+            BiberAction();
+        }
+
 
         if (u <= 1.0f)
         {
-            //spawn
-
+            tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
+            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
         }
         else
         {
             u = 1.0f;
+        }
+
+    }
+
+
+    private void LateUpdate() {
+        if(!isBiberSuccessed)
+        {
 
         }
 
-        tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
-        tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
+        if(!isHumanSuccessed)
+        {
+
+        }
     }
 
 
