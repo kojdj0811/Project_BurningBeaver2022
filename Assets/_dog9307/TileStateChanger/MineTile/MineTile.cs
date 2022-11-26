@@ -34,6 +34,7 @@ public class MineTile : TileStateChangerBase
     public override void ChangeTiles(string owner)
     {
         List<Tile> tileList = FindTiles(owner);
+        if (tileList.Count <= 0) return;
 
         int rndCount = Random.Range(_minNeutralityCount, _maxNeutralityCount + 1);
         for (int i = 0; i < rndCount; ++i)
@@ -47,7 +48,11 @@ public class MineTile : TileStateChangerBase
 
                 int offset = randomChar - 97;
                 KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                targetTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+
+                targetTile.tileType = "neutrality";
+                targetTile.tileCurrentSprite = MapGenerater.S.neutralityColor;
+
+                targetTile.tileCurrentColor.color = Color.yellow;
                 //targetTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
 
                 if (_effectPrefab)
@@ -59,5 +64,7 @@ public class MineTile : TileStateChangerBase
                 tileList.RemoveAt(targetIndex);
             }
         }
+
+        PlaySFX();
     }
 }
