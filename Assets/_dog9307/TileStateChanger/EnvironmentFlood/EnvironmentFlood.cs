@@ -159,7 +159,7 @@ public class EnvironmentFlood : TileStateChangerBase
 
             _effect.SpawnBeam();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
 
             _effect.RemoveBeam();
         }
