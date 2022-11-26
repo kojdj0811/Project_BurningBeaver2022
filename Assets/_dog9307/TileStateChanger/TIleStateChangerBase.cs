@@ -6,6 +6,8 @@ public abstract class TileStateChangerBase : MonoBehaviour
 {
     [SerializeField]
     private string _sfxName = "";
+    [SerializeField]
+    protected SpriteRenderer _renderer;
 
     public virtual void Init()
     {
@@ -24,6 +26,9 @@ public abstract class TileStateChangerBase : MonoBehaviour
 
     public virtual void DestroyChanger()
     {
+        if (_renderer)
+            _renderer.gameObject.SetActive(false);
+
         GimmickManager.S.RemoveGimmick(this);
         Destroy(gameObject);
     }

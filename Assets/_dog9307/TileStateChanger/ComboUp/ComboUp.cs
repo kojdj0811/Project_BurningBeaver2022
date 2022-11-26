@@ -8,9 +8,7 @@ public class ComboUp : TileStateChangerBase
     private int _comboCount = 3;
 
     [SerializeField]
-    private GameObject _effectParticlePrefab;
-    [SerializeField]
-    private Animator _effectAnim;
+    private ParticleSystem _effect;
 
     private bool _isAlreadyUsed = false;
 
@@ -34,23 +32,20 @@ public class ComboUp : TileStateChangerBase
             // ¶ß¶Ç ÄÞº¸ ¾÷
             MapGenerater.S.humanCombo += _comboCount;
         }
+        
+        PlaySFX();
 
-        if (_effectParticlePrefab)
-        {
-            GameObject newEffect = Instantiate(_effectParticlePrefab);
-            newEffect.transform.position = transform.position;
-
-            if (_effectAnim)
-            {
-                _effectAnim.SetTrigger("effectOn");
-
-                PlaySFX();
-            }
-        }
+        _isAlreadyUsed = true;
     }
 
     public override void DestroyChanger()
     {
+        if (_effect)
+            _effect.Stop();
+
+        if (_renderer)
+            _renderer.gameObject.SetActive(false);
+
         _isAlreadyUsed = true;
         GimmickManager.S.RemoveGimmick(this);
         Invoke("Destroy", 1.0f);
