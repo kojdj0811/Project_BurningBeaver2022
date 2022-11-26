@@ -81,7 +81,7 @@ public class Tile : MonoBehaviour
     {
         if (Input.GetKeyDown(currentKey) && tileType =="human")
         {
-             //MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
+             MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
         }
         else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
         {
@@ -130,7 +130,7 @@ public class Tile : MonoBehaviour
         }
 
         tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
-        tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.white, u);
+        tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
     }
 
 

@@ -18,7 +18,7 @@ public class MapGenerater : MonoBehaviour
 
     public Dictionary<KeyCode,char> keyCharPairs = new Dictionary<KeyCode,char>();
     
-    List<Tile> setedTileList = new List<Tile>();
+    public List<Tile> setedTileList = new List<Tile>();
     List<Tile> unsetedTileList = new List<Tile>();
 
     public float minTileSpawingTime;
@@ -95,8 +95,8 @@ public class MapGenerater : MonoBehaviour
             {
                 var a = Instantiate(prefabTile, transform);
                 unsetedTileList.Add(a.GetComponent<Tile>());
-                a.transform.position = new Vector3(frameSize/mapWidth * j, frameSize/mapHeight * i,0);
-                a.transform.localScale = new Vector3(frameSize / mapWidth, frameSize / mapHeight, 0);
+                a.transform.position = new Vector3(frameSize/(float)mapWidth * j, frameSize/(float)mapHeight * i,0);
+                a.transform.localScale = new Vector3(frameSize / (float)mapWidth, frameSize / (float)mapHeight, 0);
                 // 포지션과 사이즈 설정
                 tileContainer[i, j] = a.GetComponent<Tile>();
             }
