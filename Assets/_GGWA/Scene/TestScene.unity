@@ -317,12 +317,19 @@ MonoBehaviour:
   mapWidth: 5
   frameSize: 4
   prefabTile: {fileID: 13997338925124633, guid: fde6a86b1b0910e458cd797997efb192, type: 3}
-  biberColor: {fileID: 0}
+  beaverColor: {fileID: 0}
   humanColor: {fileID: 0}
   neutralityColor: {fileID: 0}
   setedTileList: []
   minTileSpawingTime: 1
   maxTileSpawingTime: 3
+  limitTimeToRandom: 5
+  beaverTileCount: 0
+  humanTileCount: 0
+  beaverCombo: 0
+  humanCombo: 0
+  beaverPenalty: 0
+  humanPenalty: 0
 --- !u!1 &649619837
 GameObject:
   m_ObjectHideFlags: 0

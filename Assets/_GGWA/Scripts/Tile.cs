@@ -31,7 +31,7 @@ public class Tile : MonoBehaviour
     public float spwanedTime;
     public string tileType;
 
-    private bool isSetTiled = false;
+    public bool isSetTiled = false;
 
     public bool _isSetTiled
     {
@@ -43,11 +43,6 @@ public class Tile : MonoBehaviour
     
     [Range(0.0f, 1.0f)]
     public float u;
-    
-    public bool GetTileSeted()
-    {
-        return _isSetTiled;
-    }
 
     private void Start()
     {
@@ -56,7 +51,8 @@ public class Tile : MonoBehaviour
 
     public void SetTile(char tileHotKey, KeyCode currentKey, Sprite tileCurrentSprite, float spwaningTime,string tileType)
     {
-        _isSetTiled = true;
+        spwanedTime = Time.timeSinceLevelLoad;
+        isSetTiled = false;
         TileHotKey = tileHotKey;
         this.tileCurrentSprite = tileCurrentSprite;
         this.spwaningTime = spwaningTime;
@@ -174,7 +170,7 @@ Debug.Log("[Beaver] To Neutrality");
 
         for (int i = (int)KeyCode.A; i <= (int)KeyCode.Z; i++)
         {
-            if(Input.GetKeyDown((KeyCode)i))
+            if(Input.GetKeyDown((KeyCode)i) && _isSetTiled)
             {
                 BeaverAction();
                 break;
@@ -190,46 +186,65 @@ Debug.Log("[Beaver] To Neutrality");
         else
         {
             u = 1.0f;
+            if(_isSetTiled == false)
+            {
+                _isSetTiled = true;
+            }
         }
     }
 
 
     private void LateUpdate() {
-        if(isBeaverTried && !isBeaverSuccessed)
+        if (_isSetTiled) // 타일이 완전히 활성화 되기 전 선택 제한
         {
-            MapGenerater.S.BeaverPenalty++;
-            Debug.Log("[Beaver] : Failed!!!");
-        }
-
-        if(isHumanTried &&!isHumanSuccessed)
-        {
-            MapGenerater.S.HumanPenalty++;
-            Debug.Log("[Human] : Failed!!!");
-        }
-
-
-        if(isBeaverTried || isHumanTried) {
-            MapGenerater.S.beaverTileCount = 0;
-            MapGenerater.S.humanTileCount = 0;
-
-            for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)
+            if (isBeaverTried && !isBeaverSuccessed)
             {
-                if(MapGenerater.S.setedTileList[i].tileType == "beaver") {
-                    MapGenerater.S.beaverTileCount++;
-                } else if(MapGenerater.S.setedTileList[i].tileType == "human") {
-                    MapGenerater.S.humanTileCount++;
+                MapGenerater.S.BeaverPenalty++;
+                Debug.Log("[Beaver] : Failed!!!");
+            }
+
+            if (isHumanTried && !isHumanSuccessed)
+            {
+                MapGenerater.S.HumanPenalty++;
+                Debug.Log("[Human] : Failed!!!");
+            }
+
+
+            if (isBeaverTried || isHumanTried)
+            {
+                MapGenerater.S.beaverTileCount = 0;
+                MapGenerater.S.humanTileCount = 0;
+
+                for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)
+                {
+                    if (MapGenerater.S.setedTileList[i].tileType == "beaver")
+                    {
+                        MapGenerater.S.beaverTileCount++;
+                    }
+                    else if (MapGenerater.S.setedTileList[i].tileType == "human")
+                    {
+                        MapGenerater.S.humanTileCount++;
+                    }
                 }
             }
-        }
 
-        isBeaverTried = false;
-        isHumanTried = false;
+            isBeaverTried = false;
+            isHumanTried = false;
+        }
     }
 
 
     private void OnMouseUpAsButton()
     {
-        humanAction();
-        //이곳에 타일변경 정보 넣기
+        // 활성화 배열 한번 탐색하는...
+
+        foreach (var item in MapGenerater.S.setedTileList)
+        {
+            if (item.TileHotKey == this.tileHotKey)
+            {
+                item.humanAction();
+            }
+        }
+
     }
 }
