@@ -6,7 +6,7 @@ using MyBox;
 
 public class Tile : MonoBehaviour
 {
-    public static bool isbiberTried;
+    public static bool isBiberTried;
     public static bool isBiberSuccessed;
     public static bool isHumanTried;
     public static bool isHumanSuccessed;
@@ -104,14 +104,14 @@ Debug.Log("[Human] To Neutrality");
 
     void BiberAction()
     {
-        isbiberTried = true;
+        isBiberTried = true;
 
         if (Input.GetKeyDown(currentKey))
         {
             switch (tileType)
             {
                 case "neutrality":
-                    tileType = "biber";
+                    tileType = "bieber";
                     tileCurrentSprite = MapGenerater.S.biberColor;
 
                     if(isBiberSuccessed)
@@ -141,42 +141,6 @@ Debug.Log("[Biber] To Neutrality");
                     break;
             }
         }
-
-
-
-
-
-        // if (Input.GetKeyDown(currentKey) && tileType =="human")
-        // {
-        //      MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
-        // }
-        // else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
-        // {
-
-        //     // 비버 영역으로 변경
-        // }
-        
-
-
-
-        // if (Input.anyKeyDown)
-        // {
-        //     foreach (var key in MapGenerater.S.keyCharPairs)
-        //     {
-        //         if (Input.GetKeyDown(key.Key) && key.Value == tileHotKey)
-        //         {
-        //             if (key.Value == TileHotKey)
-        //             {
-        //                 tileCurrentSprite = MapGenerater.S.biberColor; // 점수 관련 추가
-        //             }
-        //             // 점수 증가, 콤보 감소
-        //             else
-        //             {
-        //             }
-        //         }
-
-        //     }
-        // }
     }
 
 
@@ -201,7 +165,7 @@ Debug.Log("[Biber] To Neutrality");
         if (u <= 1.0f)
         {
             tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
-            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
+            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);//텍스트만 투명도 설정하기
         }
         else
         {
@@ -211,7 +175,7 @@ Debug.Log("[Biber] To Neutrality");
 
 
     private void LateUpdate() {
-        if(isbiberTried && !isBiberSuccessed)
+        if(isBiberTried && !isBiberSuccessed)
         {
             MapGenerater.S.BiberPenalty++;
             Debug.Log("[Biber] : Failed!!!");
@@ -219,12 +183,13 @@ Debug.Log("[Biber] To Neutrality");
 
         if(isHumanTried &&!isHumanSuccessed)
         {
+            Debug.Log("상태 출력: "+isHumanTried + "상태 출력:휴먼성공"+isHumanSuccessed);
             MapGenerater.S.HumanPenalty++;
             Debug.Log("[Human] : Failed!!!");
         }
 
 
-        if(isbiberTried || isHumanTried) {
+        if(isBiberTried || isHumanTried) {
             MapGenerater.S.biberTileCount = 0;
             MapGenerater.S.humanTileCount = 0;
 
@@ -238,7 +203,7 @@ Debug.Log("[Biber] To Neutrality");
             }
         }
 
-        isbiberTried = false;
+        isBiberTried = false;
         isHumanTried = false;
     }
 
