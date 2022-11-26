@@ -19,7 +19,7 @@ public class Tile : MonoBehaviour
         get => tileHotKey;
         set {
             tileHotKey = value;
-            tileHotkeyTextMesh.text = tileHotKey.ToString();
+            tileHotkeyTextMesh.text = tileHotKey.ToString().ToUpper();
         }
     }
 
@@ -40,7 +40,7 @@ public class Tile : MonoBehaviour
         set => isSetTiled = value;
     }
 
-    Vector4 tileDefaultColor = new Vector4(0,0,0,1);
+    Vector4 tileDefaultColor = new Vector4(1,1,1,0);
     
     [Range(0.0f, 1.0f)]
     public float u;
@@ -73,7 +73,7 @@ public class Tile : MonoBehaviour
             case "human":
                 tileHotkeyTextMesh.gameObject.SetActive(true);
                 tileFrame.gameObject.SetActive(false);
-                tileHotkeyTextMesh.text = tileHotKey.ToString();
+                tileHotkeyTextMesh.text = tileHotKey.ToString().ToUpper();
                 // 텍스트 알파값 설정.
                 break;
             default:
@@ -254,8 +254,8 @@ Debug.Log("[Beaver] To Neutrality");
 
         if (u <= 1.0f)
         {
-            tileTargetSprite.color = Color.Lerp(tileDefaultColor, Color.white, u);
-            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u); // 이 부분 수정
+            //tileTargetSprite.color = Color.Lerp(tileDefaultColor, Color.white, u);
+            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.white, u); // 이 부분 수정
             //tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
         }
