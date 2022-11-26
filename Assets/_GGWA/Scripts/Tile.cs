@@ -6,7 +6,7 @@ using MyBox;
 
 public class Tile : MonoBehaviour
 {
-    public static bool isbiberTried;
+    public static bool isBiberTried;
     public static bool isBiberSuccessed;
     public static bool isHumanTried;
     public static bool isHumanSuccessed;
@@ -114,14 +114,14 @@ Debug.Log("[Human] To Neutrality");
 
     void BiberAction()
     {
-        isbiberTried = true;
+        isBiberTried = true;
 
         if (Input.GetKeyDown(currentKey))
         {
             switch (tileType)
             {
                 case "neutrality":
-                    tileType = "biber";
+                    tileType = "bieber";
                     tileCurrentSprite = MapGenerater.S.biberColor;
 
                     if(isBiberSuccessed)
@@ -162,39 +162,6 @@ Debug.Log("[Biber] To Neutrality");
             }
         }
 
-        // if (Input.GetKeyDown(currentKey) && tileType =="human")
-        // {
-        //      MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
-        // }
-        // else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
-        // {
-
-        //     // 비버 영역으로 변경
-        // }
-
-
-
-
-        // if (Input.anyKeyDown)
-        // {
-        //     foreach (var key in MapGenerater.S.keyCharPairs)
-        //     {
-        //         if (Input.GetKeyDown(key.Key) && key.Value == tileHotKey)
-        //         {
-        //             if (key.Value == TileHotKey)
-        //             {
-        //                 tileCurrentSprite = MapGenerater.S.biberColor; // 점수 관련 추가
-        //             }
-        //             // 점수 증가, 콤보 감소
-        //             else
-        //             {
-        //             }
-        //         }
-
-        //     }
-        // }
-    }
-
 
 
 
@@ -227,7 +194,7 @@ Debug.Log("[Biber] To Neutrality");
 
 
     private void LateUpdate() {
-        if(isbiberTried && !isBiberSuccessed)
+        if(isBiberTried && !isBiberSuccessed)
         {
             MapGenerater.S.BiberPenalty++;
             Debug.Log("[Biber] : Failed!!!");
@@ -240,7 +207,7 @@ Debug.Log("[Biber] To Neutrality");
         }
 
 
-        if(isbiberTried || isHumanTried) {
+        if(isBiberTried || isHumanTried) {
             MapGenerater.S.biberTileCount = 0;
             MapGenerater.S.humanTileCount = 0;
 
@@ -254,7 +221,7 @@ Debug.Log("[Biber] To Neutrality");
             }
         }
 
-        isbiberTried = false;
+        isBiberTried = false;
         isHumanTried = false;
     }
 
