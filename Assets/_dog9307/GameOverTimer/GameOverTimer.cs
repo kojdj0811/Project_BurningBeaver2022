@@ -49,4 +49,14 @@ public class GameOverTimer : MonoBehaviour
                 OnGameTimeOver.Invoke();
         }
     }
+
+    public void TestBurningStart()
+    {
+        print("Burning");
+    }
+
+    public void TestGameEnd()
+    {
+        UiManager.S.ActivePopup("TimeOver", true);
+    }
 }
