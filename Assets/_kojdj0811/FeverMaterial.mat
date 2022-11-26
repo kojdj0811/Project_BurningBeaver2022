@@ -70,14 +70,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Alpha: 0.09
     - _AlphaClip: 0
     - _Blend: 0
     - _CastShadows: 0
     - _Cull: 2
-    - _Distortion: 0.055
+    - _Distortion: 0.327
     - _DstBlend: 10
     - _EnableExternalAlpha: 0
-    - _Mask: 2.49
+    - _Mask: 6.24
+    - _MaskAlpha: 2.43
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Speed: 0.3
@@ -88,8 +90,8 @@ Material:
     - _ZWriteControl: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _Color0: {r: 1, g: 0.6666667, b: 0, a: 1}
-    - _Color1: {r: 1, g: 0.3607843, b: 0, a: 1}
+    - _Color0: {r: 1, g: 0.44509125, b: 0, a: 1}
+    - _Color1: {r: 0.735849, g: 0.11930068, b: 0, a: 1}
     - _Flip: {r: 1, g: 1, b: 1, a: 1}
     - _RendererColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
