@@ -76,9 +76,15 @@ public class Tile : MonoBehaviour
                 tileHotkeyTextMesh.text = tileHotKey.ToString().ToUpper();
                 // 텍스트 알파값 설정.
                 break;
+            case "desert":
+                // 황무지로 설정
+                tileHotkeyTextMesh.gameObject.SetActive(false);
+                tileFrame.gameObject.SetActive(false);
+                break;
             default:
                 break;
         }
+
         u = 0;
 
 
@@ -119,7 +125,7 @@ public class Tile : MonoBehaviour
         UiManager.S.TotalTilePercentGauge += 0.02f;
     }
 
-    public void SetTiletoNeutrality()
+    public void SetTiletoNeutrality() // 초원 생성
     {
         if (tileType == "beaver")
             UiManager.S.TotalTilePercentGauge -= 0.02f;
@@ -131,12 +137,51 @@ public class Tile : MonoBehaviour
 
         drawTargetAlphabetOrFrame();
     }
+    public void SetTiletoDesert() // 사막 임시 생성
+    {
+
+        tileType = "desert";
+        tileTargetSprite.sprite = MapGenerater.S.desertSprite;
+        drawTargetAlphabetOrFrame();
+        
+
+    }
 
 
     void humanAction() // 플레이어가 타일을 클릭하면 되돌릴 함수 생성.
     {
         isHumanTried = true;
 
+        //        switch (tileType)
+        //        {
+        //            case "neutrality":
+        //                SetTiletoHuman();
+
+        //                if (isHumanSuccessed)
+        //                    MapGenerater.S.humanCombo++;
+        //                isHumanSuccessed = true;
+
+        //                //tileCurrentColor.color = Color.blue;
+        //Debug.Log("[Human] To Human");
+        //                break;
+        //            case "beaver":
+        //                SetTiletoNeutrality();
+
+        //                if (isHumanSuccessed)
+        //                    MapGenerater.S.humanCombo++;
+        //                isHumanSuccessed = true;
+
+        //                //tileCurrentColor.color = Color.yellow;
+        //Debug.Log("[Human] To Neutrality");
+        //                break;
+        //            case "human":
+        //                isHumanSuccessed = false;
+        //                break;
+        //            default:
+        //                isHumanSuccessed = false;
+        //                // 실패 로직은 LateUpdate 에서!
+        //                break;
+        //        }
         switch (tileType)
         {
             case "neutrality":
@@ -147,17 +192,17 @@ public class Tile : MonoBehaviour
                 isHumanSuccessed = true;
 
                 //tileCurrentColor.color = Color.blue;
-Debug.Log("[Human] To Human");
+                Debug.Log("[Human] To Human");
                 break;
             case "beaver":
-                SetTiletoNeutrality();
+                SetTiletoDesert();
 
                 if (isHumanSuccessed)
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
                 //tileCurrentColor.color = Color.yellow;
-Debug.Log("[Human] To Neutrality");
+                Debug.Log("[Human] To Desert");
                 break;
             case "human":
                 isHumanSuccessed = false;
@@ -185,6 +230,40 @@ Debug.Log("[Human] To Neutrality");
     {
         isBeaverTried = true;
 
+        //        if (Input.GetKeyDown(currentKey))
+        //        {
+        //            switch (tileType)
+        //            {
+        //                case "neutrality":
+        //                    SetTiletoBeaver();
+
+        //                    // set 알파벳 random 함수 타입을 판단하여, 활성화시킬 개체, 타임을 받아서 설정하기
+        //                    if(isBeaverSuccessed)
+        //                        MapGenerater.S.beaverCombo++;
+        //                    isBeaverSuccessed = true;
+
+        //                    //tileCurrentColor.color = Color.gray;
+        //Debug.Log("[Beaver] To beaver");
+        //                    break;
+        //                case "beaver":
+        //                    isBeaverSuccessed = false;
+        //                    break;
+        //                case "human":
+        //                    SetTiletoNeutrality();
+
+        //                    if(isBeaverSuccessed)
+        //                        MapGenerater.S.beaverCombo++;
+        //                    isBeaverSuccessed = true;
+
+        //                    //tileCurrentColor.color = Color.yellow;
+        //Debug.Log("[Beaver] To Neutrality");
+        //                    break;
+        //                default:
+        //                    isBeaverSuccessed = false;
+        //                    // 실패 로직은 LateUpdate 에서!
+        //                    break;
+        //            }
+
         if (Input.GetKeyDown(currentKey))
         {
             switch (tileType)
@@ -193,32 +272,30 @@ Debug.Log("[Human] To Neutrality");
                     SetTiletoBeaver();
 
                     // set 알파벳 random 함수 타입을 판단하여, 활성화시킬 개체, 타임을 받아서 설정하기
-                    if(isBeaverSuccessed)
+                    if (isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
                     isBeaverSuccessed = true;
 
                     //tileCurrentColor.color = Color.gray;
-Debug.Log("[Beaver] To beaver");
+                    Debug.Log("[Beaver] To beaver");
                     break;
                 case "beaver":
                     isBeaverSuccessed = false;
                     break;
                 case "human":
-                    SetTiletoNeutrality();
+                    SetTiletoDesert();
 
-                    if(isBeaverSuccessed)
+                    if (isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
                     isBeaverSuccessed = true;
 
-                    //tileCurrentColor.color = Color.yellow;
-Debug.Log("[Beaver] To Neutrality");
+                    Debug.Log("[Beaver] To Desert");
                     break;
                 default:
                     isBeaverSuccessed = false;
                     // 실패 로직은 LateUpdate 에서!
                     break;
             }
-
             if (isBeaverSuccessed)
             {
                 ComboFxManager.S.SpawnComboFx(true, $"{MapGenerater.S.beaverCombo}");
@@ -323,6 +400,7 @@ Debug.Log("[Beaver] To Neutrality");
                 item.humanAction();
             }
         }
-
+        MapGenerater.S.setedTileList.Remove(this); // 배열 교환
+        MapGenerater.S.unsetedTileList.Add(this);
     }
 }
