@@ -33,6 +33,9 @@ public class GameOverTimer : MonoBehaviour
     public UnityEvent OnBurningStart;
     public UnityEvent OnGameTimeOver;
 
+    [SerializeField]
+    private UiSample _uiSample;
+
     void Start()
     {
         _isGameEnd = true;
@@ -42,6 +45,9 @@ public class GameOverTimer : MonoBehaviour
     {
         _isAlreadyBurningStart = false;
         _isGameEnd = false;
+
+        if (_uiSample)
+            _uiSample.animDuration = totalGametime;
 
         _startTime = Time.timeSinceLevelLoad;
     }

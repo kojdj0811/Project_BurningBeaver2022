@@ -59,6 +59,7 @@ public class MapGenerater : MonoBehaviour
         }
     }
 
+    public bool isGameEnd { get; set; }
 
     void Awake()
     {
@@ -99,8 +100,8 @@ public class MapGenerater : MonoBehaviour
     IEnumerator SetRandomTile()
     {
         float startTime = Time.timeSinceLevelLoad;
-
-        while (true) // true 대신 조건을 설정하기
+        isGameEnd = false;
+        while (!isGameEnd) // true 대신 조건을 설정하기
         {
             Debug.Log("실행");
             int updateTileCount;
