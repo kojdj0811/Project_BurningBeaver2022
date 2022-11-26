@@ -10,6 +10,11 @@ public class MapGenerater : MonoBehaviour
     public int mapWidth = 4;
     public float setFrameSizeFloat; // 0.67 defaultValue
 
+
+    public float tileGererateTerm = 2.0f;
+    public int minRandomTerm = 3;
+    public int maxRandomTerm = 10;
+
     public float frameSize;
     public Tile[,] tileContainer;
     public GameObject prefabTile;
@@ -107,7 +112,7 @@ public class MapGenerater : MonoBehaviour
             int updateTileCount;
             if (Time.timeSinceLevelLoad - startTime >= limitTimeToRandom)
             {
-                updateTileCount = Random.Range(1, 5);
+                updateTileCount = Random.Range(minRandomTerm, maxRandomTerm);
             }
             else
             {
@@ -134,7 +139,7 @@ public class MapGenerater : MonoBehaviour
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
                 randomChar = (char)Random.Range(97, 123);
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(tileGererateTerm);
         }
     }
 

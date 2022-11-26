@@ -143,8 +143,8 @@ public class Tile : MonoBehaviour
         tileType = "desert";
         tileTargetSprite.sprite = MapGenerater.S.desertSprite;
         drawTargetAlphabetOrFrame();
-        
-
+        MapGenerater.S.setedTileList.Remove(this); // 배열 교환
+        MapGenerater.S.unsetedTileList.Add(this);
     }
 
 
@@ -393,14 +393,12 @@ public class Tile : MonoBehaviour
     {
         // 활성화 배열 한번 탐색하는...
 
-        foreach (var item in MapGenerater.S.setedTileList)
+        for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)
         {
-            if (item.TileHotKey == this.tileHotKey)
+            if (MapGenerater.S.setedTileList[i].TileHotKey == this.tileHotKey)
             {
-                item.humanAction();
+                MapGenerater.S.setedTileList[i].humanAction();
             }
         }
-        MapGenerater.S.setedTileList.Remove(this); // 배열 교환
-        MapGenerater.S.unsetedTileList.Add(this);
     }
 }
