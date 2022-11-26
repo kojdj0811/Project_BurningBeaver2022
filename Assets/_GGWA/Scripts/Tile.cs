@@ -28,6 +28,7 @@ public class Tile : MonoBehaviour
     public Sprite tileCurrentSprite;
     public SpriteRenderer tileTargetSprite;
 
+    public AnimationCurve textCurveAnimation;
     public float spwaningTime;
     public float spwanedTime;
     public string tileType;
@@ -331,8 +332,9 @@ public class Tile : MonoBehaviour
 
         if (u <= 1.0f)
         {
-            //tileTargetSprite.color = Color.Lerp(tileDefaultColor, Color.white, u);
-            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.white, u); // 이 부분 수정
+            //tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.white, u); // 이 부분 수정
+            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor,Color.white, textCurveAnimation.Evaluate(u)); // 이 부분 수정
+
             //tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
         }
