@@ -7,14 +7,16 @@ public class MapGenerater : MonoBehaviour
 {
     public int mapHeight = 4;
     public int mapWidth = 4;
+    public float setFrameSizeFloat; // 0.67 defaultValue
 
-    public int frameSize;
+    public float frameSize;
     public Tile[,] tileContainer;
     public GameObject prefabTile;
 
-    public Sprite beaverColor;
-    public Sprite humanColor;
-    public Sprite neutralityColor;
+    public Sprite beaverSprite;
+    public Sprite humanSprite;
+    public Sprite activedSprite;
+    public Sprite defaultSprite;
 
 
     public Dictionary<KeyCode,char> keyCharPairs = new Dictionary<KeyCode,char>();
@@ -57,9 +59,6 @@ public class MapGenerater : MonoBehaviour
     }
 
 
-
-
-
     void Awake()
     {
         if (S != null) {
@@ -92,6 +91,10 @@ public class MapGenerater : MonoBehaviour
         StartCoroutine(SetRandomTile());
     }
 
+    public float GetRandomSpawningTime()
+    {
+        return Random.Range(minTileSpawingTime, maxTileSpawingTime);
+    }
     IEnumerator SetRandomTile()
     {
         float startTime = Time.timeSinceLevelLoad;
@@ -126,7 +129,7 @@ public class MapGenerater : MonoBehaviour
                 // dongdong
                 int offset = randomChar - 97;
                 KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                target.SetTile(randomChar, tempCode, neutralityColor, tileSpawingTime, "neutrality");
+                target.SetTile(randomChar, tempCode, activedSprite, tileSpawingTime, "neutrality");
 
                 loopCount++;
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
@@ -141,14 +144,20 @@ public class MapGenerater : MonoBehaviour
     public void GenerateMap(int width, int height)
     {
         tileContainer =  new Tile[width,height];
+
+        float deafultGap = (frameSize/mapWidth)* ((width * 0.5f)- 0.5f);
+
         for (int i = 0; i < height; i++)
         {
             for (int j = 0; j < width; j++)
             {
                 var a = Instantiate(prefabTile, transform);
                 unsetedTileList.Add(a.GetComponent<Tile>());
-                a.transform.position = new Vector3(frameSize/(float)mapWidth * j, frameSize/(float)mapHeight * i,0);
-                a.transform.localScale = new Vector3(frameSize / (float)mapWidth, frameSize / (float)mapHeight, 0);
+
+                a.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -i;
+
+                a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap, 0);
+                a.transform.localScale = new Vector3((frameSize / (float)mapWidth) * setFrameSizeFloat, (frameSize / (float)mapHeight) * setFrameSizeFloat, 0); 
                 // 포지션과 사이즈 설정
                 tileContainer[i, j] = a.GetComponent<Tile>();
             }

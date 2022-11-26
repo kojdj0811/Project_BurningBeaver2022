@@ -47,7 +47,7 @@ public class MineTile : TileStateChangerBase
 
                 int offset = randomChar - 97;
                 KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                targetTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                targetTile.SetTile(randomChar, tempCode, MapGenerater.S.activedSprite, tileSpawingTime, "neutrality");
                 //targetTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
 
                 if (_effectPrefab)

@@ -171,7 +171,7 @@ public class EnvironmentFlood : TileStateChangerBase
 
                     int offset = randomChar - 97;
                     KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.activedSprite, tileSpawingTime, "neutrality");
                 }
             break;
 
@@ -185,7 +185,7 @@ public class EnvironmentFlood : TileStateChangerBase
 
                     int offset = randomChar - 97;
                     KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.activedSprite, tileSpawingTime, "neutrality");
                 }
             break;
         }

@@ -55,16 +55,16 @@ public class CrossOccupier : TileStateChangerBase
         if (owner == "beaver")
         {
             targetTile.tileType = "beaver";
-            targetTile.tileCurrentSprite = MapGenerater.S.beaverColor;
+            targetTile.tileCurrentSprite = MapGenerater.S.beaverSprite;
 
-            targetTile.tileCurrentColor.color = Color.gray;
+            targetTile.tileTargetSprite.color = Color.gray;
         }
         else if (owner == "human")
         {
             targetTile.tileType = "human";
-            targetTile.tileCurrentSprite = MapGenerater.S.humanColor;
+            targetTile.tileCurrentSprite = MapGenerater.S.humanSprite;
 
-            targetTile.tileCurrentColor.color = Color.blue;
+            targetTile.tileTargetSprite.color = Color.blue;
         }
 
         //float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
