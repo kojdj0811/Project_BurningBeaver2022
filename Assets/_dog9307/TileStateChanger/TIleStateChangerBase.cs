@@ -4,6 +4,9 @@ using UnityEngine;
 
 public abstract class TileStateChangerBase : MonoBehaviour
 {
+    [SerializeField]
+    private string _sfxName = "";
+
     public virtual void Init()
     {
         int indexX = Random.Range(0, MapGenerater.S.mapWidth);
@@ -23,5 +26,11 @@ public abstract class TileStateChangerBase : MonoBehaviour
     {
         GimmickManager.S.RemoveGimmick(this);
         Destroy(gameObject);
+    }
+
+    public void PlaySFX()
+    {
+        if (SoundPlayer.S)
+            SoundPlayer.S.PlaySfx(_sfxName);
     }
 }

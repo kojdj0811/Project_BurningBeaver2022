@@ -217,4 +217,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fbdf98027d735304fa6c0d513c9e869b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sfxName: arcaneimpact
   _effectPrefab: {fileID: 100000, guid: 1bc4a709f24528b40984e62f32e398a0, type: 3}

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f90f38ba903788408ab94db9c25817b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sfxName: fireimpact
   _minNeutralityCount: 1
   _maxNeutralityCount: 3
   _effectPrefab: {fileID: 1892078723244562, guid: 46876a2780737ec45a19d62f88e5ce56, type: 3}

@@ -120,14 +120,16 @@ public class EnvironmentFlood : TileStateChangerBase
                 _currentOriginIndex = Random.Range(0, MapGenerater.S.mapWidth);
 
                 // 위치 변경
+                newPos.x = MapGenerater.S.tileContainer[0, _currentOriginIndex].transform.position.x;
             break;
 
             case FloodDir.LeftRight:
                 transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f));
                 _currentOriginIndex = Random.Range(0, MapGenerater.S.mapHeight);
-                
+
                 // 위치 변경
-            break;
+                newPos.y = MapGenerater.S.tileContainer[_currentOriginIndex, 0].transform.position.y;
+                break;
         }
         transform.position = newPos;
     }
@@ -149,6 +151,8 @@ public class EnvironmentFlood : TileStateChangerBase
 
         if (_effect)
         {
+            PlaySFX();
+
             _effect.SpawnBeam();
 
             yield return new WaitForSeconds(0.5f);
@@ -171,7 +175,11 @@ public class EnvironmentFlood : TileStateChangerBase
 
                     int offset = randomChar - 97;
                     KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+
+                    currentTile.tileType = "neutrality";
+                    currentTile.tileCurrentSprite = MapGenerater.S.neutralityColor;
+
+                    currentTile.tileCurrentColor.color = Color.yellow;
                 }
             break;
 
@@ -185,7 +193,11 @@ public class EnvironmentFlood : TileStateChangerBase
 
                     int offset = randomChar - 97;
                     KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+
+                    currentTile.tileType = "neutrality";
+                    currentTile.tileCurrentSprite = MapGenerater.S.neutralityColor;
+
+                    currentTile.tileCurrentColor.color = Color.yellow;
                 }
             break;
         }

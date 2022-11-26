@@ -78,6 +78,8 @@ public class CrossOccupier : TileStateChangerBase
         {
             GameObject newEffect = Instantiate(_effectPrefab);
             newEffect.transform.position = targetTile.transform.position;
+
+            PlaySFX();
         }
     }
 }
