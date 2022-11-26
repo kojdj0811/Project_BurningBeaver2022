@@ -103,6 +103,12 @@ public class EnvironmentFlood : TileStateChangerBase
         _gameStartingTime = Time.timeSinceLevelLoad;
     }
 
+    public void TimerEnd()
+    {
+        StopAllCoroutines();
+        _isTimerStart = false;
+    }
+
     public override void Init()
     {
         _currentDir = (FloodDir)Random.Range((int)FloodDir.NONE + 1, (int)FloodDir.END);
@@ -139,7 +145,7 @@ public class EnvironmentFlood : TileStateChangerBase
         yield return new WaitForSeconds(_animTime * _animCount);
         _effectAnim.SetBool("isBlink", false);
 
-        ChangeTiles();
+        ChangeTiles("");
 
         if (_effect)
         {
@@ -151,7 +157,7 @@ public class EnvironmentFlood : TileStateChangerBase
         }
     }
 
-    public override void ChangeTiles()
+    public override void ChangeTiles(string owner)
     {
         switch (_currentDir)
         {

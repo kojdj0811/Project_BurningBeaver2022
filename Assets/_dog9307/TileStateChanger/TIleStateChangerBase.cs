@@ -4,8 +4,6 @@ using UnityEngine;
 
 public abstract class TileStateChangerBase : MonoBehaviour
 {
-    public string owner;
-
     public virtual void Init()
     {
         int indexX = Random.Range(0, MapGenerater.S.mapWidth);
@@ -13,8 +11,17 @@ public abstract class TileStateChangerBase : MonoBehaviour
 
         Tile targetTile = MapGenerater.S.tileContainer[indexY, indexX];
         if (targetTile)
+        {
             transform.parent = targetTile.transform;
+            transform.localPosition = Vector3.zero;
+        }
     }
 
-    public abstract void ChangeTiles();
+    public abstract void ChangeTiles(string owner);
+
+    public virtual void DestroyChanger()
+    {
+        GimmickManager.S.RemoveGimmick(this);
+        Destroy(gameObject);
+    }
 }
