@@ -51,6 +51,30 @@ MonoBehaviour:
   currentKey: 0
   tileCurrentSprite: {fileID: 0}
   tileTargetSprite: {fileID: 4931624348654171784}
+  textCurveAnimation:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   spwaningTime: 0
   spwanedTime: 0
   tileType: 
