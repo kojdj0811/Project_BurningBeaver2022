@@ -315,11 +315,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapHeight: 5
   mapWidth: 5
-  frameSize: 0
+  frameSize: 2
   prefabTile: {fileID: 13997338925124633, guid: fde6a86b1b0910e458cd797997efb192, type: 3}
   biberColor: {fileID: 0}
   humanColor: {fileID: 0}
   neutralityColor: {fileID: 0}
+  setedTileList: []
   minTileSpawingTime: 3
   maxTileSpawingTime: 15
 --- !u!1 &649619837
