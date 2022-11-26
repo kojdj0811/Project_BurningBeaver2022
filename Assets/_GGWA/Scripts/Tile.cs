@@ -6,7 +6,7 @@ using MyBox;
 
 public class Tile : MonoBehaviour
 {
-    public static bool isBibierTried;
+    public static bool isbiberTried;
     public static bool isBiberSuccessed;
     public static bool isHumanTried;
     public static bool isHumanSuccessed;
@@ -73,6 +73,9 @@ public class Tile : MonoBehaviour
             case "neutrality":
                 tileType = "human";
                 tileCurrentSprite = MapGenerater.S.humanColor;
+
+                if(isHumanSuccessed)
+                    MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
                 tileCurrentColor.color = Color.blue;
@@ -81,15 +84,19 @@ Debug.Log("[Human] To Human");
             case "bieber":
                 tileType = "neutrality";
                 tileCurrentSprite = MapGenerater.S.neutralityColor;
+
+                if(isHumanSuccessed)
+                    MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
                 tileCurrentColor.color = Color.yellow;
 Debug.Log("[Human] To Neutrality");
                 break;
             case "human":
-                isHumanSuccessed = true;
+                isHumanSuccessed = false;
                 break;
             default:
+                isHumanSuccessed = false;
                 // 실패 로직은 LateUpdate 에서!
                 break;
         }
@@ -97,32 +104,39 @@ Debug.Log("[Human] To Neutrality");
 
     void BiberAction()
     {
-        isBibierTried = true;
+        isbiberTried = true;
 
         if (Input.GetKeyDown(currentKey))
         {
             switch (tileType)
             {
                 case "neutrality":
-                    tileType = "bieber";
+                    tileType = "biber";
                     tileCurrentSprite = MapGenerater.S.biberColor;
+
+                    if(isBiberSuccessed)
+                        MapGenerater.S.biberCombo++;
                     isBiberSuccessed = true;
 
                     tileCurrentColor.color = Color.gray;
-Debug.Log("[Biber] To Biber");
+Debug.Log("[Biber] To biber");
                     break;
                 case "bieber":
-                    isBiberSuccessed = true;
+                    isBiberSuccessed = false;
                     break;
                 case "human":
                     tileType = "neutrality";
                     tileCurrentSprite = MapGenerater.S.neutralityColor;
+
+                    if(isBiberSuccessed)
+                        MapGenerater.S.biberCombo++;
                     isBiberSuccessed = true;
 
                     tileCurrentColor.color = Color.yellow;
 Debug.Log("[Biber] To Neutrality");
                     break;
                 default:
+                    isBiberSuccessed = false;
                     // 실패 로직은 LateUpdate 에서!
                     break;
             }
@@ -173,9 +187,14 @@ Debug.Log("[Biber] To Neutrality");
     {
         u = (Time.timeSinceLevelLoad - spwanedTime) / spwaningTime;
 
-        if (Input.anyKeyDown)
+
+        for (int i = (int)KeyCode.A; i <= (int)KeyCode.Z; i++)
         {
-            BiberAction();
+            if(Input.GetKeyDown((KeyCode)i))
+            {
+                BiberAction();
+                break;
+            }
         }
 
 
@@ -188,20 +207,39 @@ Debug.Log("[Biber] To Neutrality");
         {
             u = 1.0f;
         }
-
     }
 
 
     private void LateUpdate() {
-        if(!isBiberSuccessed)
+        if(isbiberTried && !isBiberSuccessed)
         {
-
+            MapGenerater.S.BiberPenalty++;
+            Debug.Log("[Biber] : Failed!!!");
         }
 
-        if(!isHumanSuccessed)
+        if(isHumanTried &&!isHumanSuccessed)
         {
-
+            MapGenerater.S.HumanPenalty++;
+            Debug.Log("[Human] : Failed!!!");
         }
+
+
+        if(isbiberTried || isHumanTried) {
+            MapGenerater.S.biberTileCount = 0;
+            MapGenerater.S.humanTileCount = 0;
+
+            for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)
+            {
+                if(MapGenerater.S.setedTileList[i].tileType == "biber") {
+                    MapGenerater.S.biberTileCount++;
+                } else if(MapGenerater.S.setedTileList[i].tileType == "human") {
+                    MapGenerater.S.humanTileCount++;
+                }
+            }
+        }
+
+        isbiberTried = false;
+        isHumanTried = false;
     }
 
 
