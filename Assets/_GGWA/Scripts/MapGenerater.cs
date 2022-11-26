@@ -64,11 +64,18 @@ public class MapGenerater : MonoBehaviour
             {
                 Debug.Log($"루프 데스티네이션 값 : {loopDestInt}");
 
+                // dongdong
+                if (unsetedTileList.Count <= 0) break;
+
                 var target = unsetedTileList[Random.Range(0, unsetedTileList.Count)]; // exception 처리
                 setedTileList.Add(target);
                 unsetedTileList.Remove(target);
 
-                target.SetTile(randomChar, neutralityColor, tileSpawingTime, "neutrality");
+                // dongdong
+                int offset = randomChar - 97;
+                KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+                target.SetTile(randomChar, tempCode, neutralityColor, tileSpawingTime, "neutrality");
+
                 loopDestInt++;
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
                 randomChar = (char)Random.Range(97, 123);
