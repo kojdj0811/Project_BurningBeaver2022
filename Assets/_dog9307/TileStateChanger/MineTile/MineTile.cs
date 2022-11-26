@@ -12,9 +12,9 @@ public class MineTile : TileStateChangerBase
     [SerializeField]
     private GameObject _effectPrefab;
 
-    public override void ChangeTiles()
+    private List<Tile> FindTiles(string owner)
     {
-        List<Tile> tileList = new List<Tile>();
+        List<Tile> findList = new List<Tile>();
         for (int i = 0; i < MapGenerater.S.mapHeight; ++i)
         {
             for (int j = 0; j < MapGenerater.S.mapWidth; ++j)
@@ -23,10 +23,17 @@ public class MineTile : TileStateChangerBase
                 if (currentTile)
                 {
                     if (currentTile.tileType == owner)
-                        tileList.Add(currentTile);
+                        findList.Add(currentTile);
                 }
             }
         }
+
+        return findList;
+    }
+
+    public override void ChangeTiles(string owner)
+    {
+        List<Tile> tileList = FindTiles(owner);
 
         int rndCount = Random.Range(_minNeutralityCount, _maxNeutralityCount + 1);
         for (int i = 0; i < rndCount; ++i)

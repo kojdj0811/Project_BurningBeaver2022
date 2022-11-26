@@ -17,53 +17,62 @@ public class CrossOccupier : TileStateChangerBase
 
         Tile targetTile = MapGenerater.S.tileContainer[_indexY, _indexX];
         if (targetTile)
+        {
             transform.parent = targetTile.transform;
+            transform.localPosition = Vector3.zero;
+        }
     }
 
-    public override void ChangeTiles()
+    public override void ChangeTiles(string owner)
     {
         int x = 0;
         int y = 0;
 
         x = _indexX - 1;
         y = _indexY;
-        SetTile(x, y);
+        SetTile(x, y, owner);
 
         x = _indexX + 1;
         y = _indexY;
-        SetTile(x, y);
+        SetTile(x, y, owner);
 
         x = _indexX;
         y = _indexY - 1;
-        SetTile(x, y);
+        SetTile(x, y, owner);
 
         x = _indexX;
         y = _indexY + 1;
-        SetTile(x, y);
+        SetTile(x, y, owner);
     }
 
-    void SetTile(int targetIndexX, int targetIndexY)
+    void SetTile(int targetIndexX, int targetIndexY, string owner)
     {
-        if (!(0 < targetIndexX && targetIndexX < MapGenerater.S.mapWidth)) return;
-        if (!(0 < targetIndexY && targetIndexY < MapGenerater.S.mapHeight)) return;
-
-        Sprite targetSprite = null;
-
-        if (owner == "biber")
-            targetSprite = MapGenerater.S.biberColor;
-        else if (owner == "human")
-            targetSprite = MapGenerater.S.humanColor;
-
-        if (!targetSprite) return;
+        if (!(0 <= targetIndexX && targetIndexX < MapGenerater.S.mapWidth)) return;
+        if (!(0 <= targetIndexY && targetIndexY < MapGenerater.S.mapHeight)) return;
 
         Tile targetTile = MapGenerater.S.tileContainer[targetIndexY, targetIndexX];
 
-        float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
-        char randomChar = (char)Random.Range(97, 123);
+        if (owner == "bieber")
+        {
+            targetTile.tileType = "bieber";
+            targetTile.tileCurrentSprite = MapGenerater.S.biberColor;
 
-        int offset = randomChar - 97;
-        KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-        targetTile.SetTile(randomChar, tempCode, targetSprite, tileSpawingTime, owner);
+            targetTile.tileCurrentColor.color = Color.gray;
+        }
+        else if (owner == "human")
+        {
+            targetTile.tileType = "human";
+            targetTile.tileCurrentSprite = MapGenerater.S.humanColor;
+
+            targetTile.tileCurrentColor.color = Color.blue;
+        }
+
+        //float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
+        //char randomChar = (char)Random.Range(97, 123);
+
+        //int offset = randomChar - 97;
+        //KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+        //targetTile.SetTile(randomChar, tempCode, targetSprite, tileSpawingTime, owner);
 
         if (_effectPrefab)
         {
