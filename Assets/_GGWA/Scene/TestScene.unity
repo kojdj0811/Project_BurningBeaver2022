@@ -1443,8 +1443,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dad99783a16e9b43beb083557349cce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mapHeight: 4
-  mapWidth: 4
+  mapHeight: 7
+  mapWidth: 7
   setFrameSizeFloat: 0.67
   frameSize: 8
   prefabTile: {fileID: 13997338925124633, guid: fde6a86b1b0910e458cd797997efb192, type: 3}
@@ -2410,7 +2410,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &729575697
 MonoBehaviour:
   m_ObjectHideFlags: 0
