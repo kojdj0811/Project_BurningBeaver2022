@@ -24,7 +24,7 @@ public class Tile : MonoBehaviour
 
     public KeyCode currentKey;
 
-    Sprite tileCurrentSprite;
+    public Sprite tileCurrentSprite;
     public SpriteRenderer tileCurrentColor;
 
     public float spwaningTime;
@@ -93,6 +93,16 @@ Debug.Log("[Human] To Neutrality");
                 // 실패 로직은 LateUpdate 에서!
                 break;
         }
+
+        if (isHumanSuccessed)
+        {
+            TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
+            if (changer)
+            {
+                changer.ChangeTiles("human");
+                changer.DestroyChanger();
+            }
+        }
     }
 
     void BiberAction()
@@ -126,11 +136,17 @@ Debug.Log("[Biber] To Neutrality");
                     // 실패 로직은 LateUpdate 에서!
                     break;
             }
+
+            if (isBiberSuccessed)
+            {
+                TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
+                if (changer)
+                {
+                    changer.ChangeTiles("bieber");
+                    changer.DestroyChanger();
+                }
+            }
         }
-
-
-
-
 
         // if (Input.GetKeyDown(currentKey) && tileType =="human")
         // {
@@ -141,7 +157,7 @@ Debug.Log("[Biber] To Neutrality");
 
         //     // 비버 영역으로 변경
         // }
-        
+
 
 
 

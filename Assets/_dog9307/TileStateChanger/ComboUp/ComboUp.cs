@@ -12,7 +12,7 @@ public class ComboUp : TileStateChangerBase
     [SerializeField]
     private Animator _effectAnim;
 
-    public override void ChangeTiles()
+    public override void ChangeTiles(string owner)
     {
         if (owner == "biber")
         {
