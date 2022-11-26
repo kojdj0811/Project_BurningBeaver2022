@@ -14,6 +14,7 @@ public class Tile : MonoBehaviour
 
     private char tileHotKey;
     public TextMeshPro tileHotkeyTextMesh;
+    public SpriteRenderer tileFrame;
     public char TileHotKey {
         get => tileHotKey;
         set {
@@ -25,7 +26,7 @@ public class Tile : MonoBehaviour
     public KeyCode currentKey;
 
     public Sprite tileCurrentSprite;
-    public SpriteRenderer tileCurrentColor;
+    public SpriteRenderer tileTargetSprite;
 
     public float spwaningTime;
     public float spwanedTime;
@@ -46,15 +47,53 @@ public class Tile : MonoBehaviour
 
     private void Start()
     {
-        
+        tileHotkeyTextMesh = transform.GetChild(0).GetChild(0).GetComponent<TextMeshPro>();
+        tileFrame = transform.GetChild(0).GetChild(1).GetComponent<SpriteRenderer>();
+    }
+
+    public void drawTargetAlphabetOrFrame()
+    {
+        TileHotKey = (char)Random.Range(97, 123);
+        int offset = TileHotKey - 97;
+        currentKey = (KeyCode)((int)KeyCode.A + offset); // 대응 키, 핫키 설정
+        spwanedTime = Time.timeSinceLevelLoad;
+        spwaningTime = MapGenerater.S.GetRandomSpawningTime();
+        switch (tileType)
+        {
+            case "beaver":
+                // 격자의 알파값 설정
+                tileHotkeyTextMesh.gameObject.SetActive(false);
+                tileFrame.gameObject.SetActive(true);
+                break;
+            case "neutrality":
+                //격자, 텍스트 알파값 설정
+                tileHotkeyTextMesh.gameObject.SetActive(true);
+                tileFrame.gameObject.SetActive(true);
+                break;
+            case "human":
+                tileHotkeyTextMesh.gameObject.SetActive(true);
+                tileFrame.gameObject.SetActive(false);
+                tileHotkeyTextMesh.text = tileHotKey.ToString();
+                // 텍스트 알파값 설정.
+                break;
+            default:
+                break;
+        }
+        u = 0;
+
+
+
+        //set 알파벳 random 함수 타입을 판단하여, 활성화시킬 개체, 타임을 받아서 설정하기
     }
 
     public void SetTile(char tileHotKey, KeyCode currentKey, Sprite tileCurrentSprite, float spwaningTime,string tileType)
     {
+        u = 0;
         spwanedTime = Time.timeSinceLevelLoad;
         isSetTiled = false;
         TileHotKey = tileHotKey;
         this.tileCurrentSprite = tileCurrentSprite;
+        this.tileTargetSprite.sprite = tileCurrentSprite;
         this.spwaningTime = spwaningTime;
         this.tileType = tileType;
         this.currentKey = currentKey;
@@ -68,24 +107,27 @@ public class Tile : MonoBehaviour
         {
             case "neutrality":
                 tileType = "human";
-                tileCurrentSprite = MapGenerater.S.humanColor;
+                tileTargetSprite.sprite = MapGenerater.S.humanSprite;
 
-                if(isHumanSuccessed)
+                drawTargetAlphabetOrFrame();
+
+                if (isHumanSuccessed)
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
-                tileCurrentColor.color = Color.blue;
+                //tileCurrentColor.color = Color.blue;
 Debug.Log("[Human] To Human");
                 break;
             case "beaver":
                 tileType = "neutrality";
-                tileCurrentSprite = MapGenerater.S.neutralityColor;
+                tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
-                if(isHumanSuccessed)
+                drawTargetAlphabetOrFrame();
+                if (isHumanSuccessed)
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
-                tileCurrentColor.color = Color.yellow;
+                //tileCurrentColor.color = Color.yellow;
 Debug.Log("[Human] To Neutrality");
                 break;
             case "human":
@@ -118,13 +160,14 @@ Debug.Log("[Human] To Neutrality");
             {
                 case "neutrality":
                     tileType = "beaver";
-                    tileCurrentSprite = MapGenerater.S.beaverColor;
-
+                    tileTargetSprite.sprite = MapGenerater.S.beaverSprite;
+                    drawTargetAlphabetOrFrame();
+                    // set 알파벳 random 함수 타입을 판단하여, 활성화시킬 개체, 타임을 받아서 설정하기
                     if(isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
                     isBeaverSuccessed = true;
 
-                    tileCurrentColor.color = Color.gray;
+                    //tileCurrentColor.color = Color.gray;
 Debug.Log("[Beaver] To beaver");
                     break;
                 case "beaver":
@@ -132,13 +175,14 @@ Debug.Log("[Beaver] To beaver");
                     break;
                 case "human":
                     tileType = "neutrality";
-                    tileCurrentSprite = MapGenerater.S.neutralityColor;
+                    tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
+                    drawTargetAlphabetOrFrame();
                     if(isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
                     isBeaverSuccessed = true;
 
-                    tileCurrentColor.color = Color.yellow;
+                    //tileCurrentColor.color = Color.yellow;
 Debug.Log("[Beaver] To Neutrality");
                     break;
                 default:
@@ -180,15 +224,19 @@ Debug.Log("[Beaver] To Neutrality");
 
         if (u <= 1.0f)
         {
-            tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
-            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
+            tileTargetSprite.color = Color.Lerp(tileDefaultColor, Color.white, u);
+            tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u); // 이 부분 수정
+            //tileTargetSprite.sprite = MapGenerater.S.activedSprite;
+
         }
         else
         {
             u = 1.0f;
             if(_isSetTiled == false)
             {
+
                 _isSetTiled = true;
+
             }
         }
     }
