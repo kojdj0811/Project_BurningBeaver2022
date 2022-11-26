@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnvironmentFlood : TIleStateChangerBase
+using MyBox;
+using MagicArsenal;
+
+public class EnvironmentFlood : TileStateChangerBase
 {
     public enum FloodDir
     {
@@ -52,7 +55,7 @@ public class EnvironmentFlood : TIleStateChangerBase
     private int _animCount = 3;
 
     [SerializeField]
-    private ParticleSystem _effect;
+    private MagicBeamStatic _effect;
 
     void Start()
     {
@@ -93,6 +96,7 @@ public class EnvironmentFlood : TIleStateChangerBase
         }
     }
 
+    [ButtonMethod]
     public void TimerStart()
     {
         _isTimerStart = true;
@@ -132,13 +136,19 @@ public class EnvironmentFlood : TIleStateChangerBase
     {
         // 범위 표시 이펙트
         _effectAnim.SetBool("isBlink", true);
-        yield return null;
+        yield return new WaitForSeconds(_animTime * _animCount);
         _effectAnim.SetBool("isBlink", false);
 
-        if (_effect)
-            _effect.Play();
-
         ChangeTiles();
+
+        if (_effect)
+        {
+            _effect.SpawnBeam();
+
+            yield return new WaitForSeconds(0.5f);
+
+            _effect.RemoveBeam();
+        }
     }
 
     public override void ChangeTiles()
