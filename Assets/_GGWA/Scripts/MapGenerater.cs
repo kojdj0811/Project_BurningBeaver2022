@@ -17,13 +17,13 @@ public class MapGenerater : MonoBehaviour
     public Sprite beaverSprite;
     public Sprite humanSprite;
     public Sprite activedSprite;
-    public Sprite defaultSprite;
+    public Sprite desertSprite;
 
 
     public Dictionary<KeyCode,char> keyCharPairs = new Dictionary<KeyCode,char>();
     
     public List<Tile> setedTileList = new List<Tile>();
-    List<Tile> unsetedTileList = new List<Tile>();
+    public List<Tile> unsetedTileList = new List<Tile>();
 
     public float minTileSpawingTime;
     public float maxTileSpawingTime;
@@ -155,7 +155,7 @@ public class MapGenerater : MonoBehaviour
 
                 a.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -i - 1;
 
-                a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap, 0);
+                a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap+0.5f, 0);
                 a.transform.localScale = new Vector3((frameSize / (float)mapWidth) * setFrameSizeFloat, (frameSize / (float)mapHeight) * setFrameSizeFloat, 0); 
                 // 포지션과 사이즈 설정
                 tileContainer[i, j] = a.GetComponent<Tile>();
