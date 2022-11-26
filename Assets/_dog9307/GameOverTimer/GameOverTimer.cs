@@ -71,7 +71,7 @@ public class GameOverTimer : MonoBehaviour
         }
 
         float ratio = duringTime / _totalGameTime;
-        UiManager.S.RemainedTimeGauge = ratio;
+        UiManager.S.RemainedTimeGauge = 1.0f - ratio;
     }
 
     public void TestBurningStart()
