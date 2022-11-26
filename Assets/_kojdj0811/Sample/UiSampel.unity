@@ -3984,7 +3984,7 @@ GameObject:
   - component: {fileID: 1419181641}
   - component: {fileID: 1419181640}
   m_Layer: 0
-  m_Name: Quad
+  m_Name: FeverEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4509,10 +4509,13 @@ MonoBehaviour:
   animationDelay1: 1
   animationDelay2: 0.5
   animationDelay3: 2
+  tileCount: {fileID: 0}
   tileCount_top: {fileID: 764258579}
   tileCount_buttom: {fileID: 1326015683}
+  combo: {fileID: 0}
   combo_top: {fileID: 340208960}
   combo_buttom: {fileID: 1202786110}
+  penalty: {fileID: 0}
   penalty_top: {fileID: 1747664794}
   penalty_buttom: {fileID: 94033917}
 --- !u!1 &1747664792
