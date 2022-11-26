@@ -55,15 +55,13 @@ public class MapGenerater : MonoBehaviour
         while (true)
         {
             Debug.Log("실행");
-            int loopRandomInt = Random.Range(1, 5);
-            int loopDestInt = 0;
+            int updateTileCount = Random.Range(1, 5);
+            int loopCount = 0;
 
             float tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
             char randomChar = (char)Random.Range(97, 123);
-            while (loopDestInt < loopRandomInt)
+            while (loopCount < updateTileCount)
             {
-                Debug.Log($"루프 데스티네이션 값 : {loopDestInt}");
-
                 // dongdong
                 if (unsetedTileList.Count <= 0) break;
 
@@ -76,7 +74,7 @@ public class MapGenerater : MonoBehaviour
                 KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
                 target.SetTile(randomChar, tempCode, neutralityColor, tileSpawingTime, "neutrality");
 
-                loopDestInt++;
+                loopCount++;
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
                 randomChar = (char)Random.Range(97, 123);
             }
