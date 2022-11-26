@@ -24,7 +24,7 @@ public abstract class TileStateChangerBase : MonoBehaviour
 
             Vector3 newPos = targetTile.transform.position;
             newPos.z = _zPos;
-            targetTile.transform.position = newPos;
+            transform.position = newPos;
 
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
