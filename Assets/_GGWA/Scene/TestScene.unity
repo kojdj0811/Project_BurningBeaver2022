@@ -1716,6 +1716,9 @@ MonoBehaviour:
   mapHeight: 7
   mapWidth: 7
   setFrameSizeFloat: 0.67
+  tileGererateTerm: 1
+  minRandomTerm: 1
+  maxRandomTerm: 4
   frameSize: 7.5
   prefabTile: {fileID: 13997338925124633, guid: fde6a86b1b0910e458cd797997efb192, type: 3}
   beaverSprite: {fileID: 21300000, guid: b61aa2880afe15c4fb50515eb14b7d61, type: 3}
