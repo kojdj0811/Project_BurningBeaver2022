@@ -21,7 +21,12 @@ public class CrossOccupier : TileStateChangerBase
         if (targetTile)
         {
             transform.parent = targetTile.transform;
-            transform.localPosition = Vector3.zero;
+
+            Vector3 newPos = targetTile.transform.position;
+            newPos.z = _zPos;
+            targetTile.transform.position = newPos;
+
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
 
         _isAlreadyUsed = false;

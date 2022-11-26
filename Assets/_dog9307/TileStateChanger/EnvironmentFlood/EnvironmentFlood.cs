@@ -80,7 +80,7 @@ public class EnvironmentFlood : TileStateChangerBase
         _currentTargetTimeIndex = 0;
 
         Vector3 scale = _effectAnim.transform.localScale;
-        scale.x = MapGenerater.S.frameSize / (float)MapGenerater.S.mapWidth;
+        scale.x = MapGenerater.S.tileContainer[0, 0].transform.lossyScale.x;
         _effectAnim.transform.localScale = scale;
 
         _isTimerStart = false;

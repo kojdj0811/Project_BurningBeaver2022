@@ -66,6 +66,8 @@ public class GameOverTimer : MonoBehaviour
 
         if (Time.timeSinceLevelLoad - _startTime >= _totalGameTime)
         {
+            _isGameEnd = true;
+
             if (OnGameTimeOver != null)
                 OnGameTimeOver.Invoke();
         }
@@ -79,5 +81,28 @@ public class GameOverTimer : MonoBehaviour
     public void TestGameEnd()
     {
         UiManager.S.ActivePopup("TimeOver", true);
+    }
+
+    public void PlayBattleBGM()
+    {
+        SoundPlayer.S.PlayBgm("Battle_BGM");
+    }
+
+    public void PlayBurningBGM()
+    {
+        SoundPlayer.S.PlayBgm("Burning_BGM");
+    }
+
+    [SerializeField]
+    private float _endBGMTime = 1.5f;
+    public void PlayEndBGM()
+    {
+        SoundPlayer.S.PlayBgm("End_BGM");
+        Invoke("EndBGMOff", _endBGMTime);
+    }
+
+    public void EndBGMOff()
+    {
+        SoundPlayer.S.GetComponent<AudioSource>().Stop();
     }
 }

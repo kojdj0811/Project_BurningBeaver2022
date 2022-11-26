@@ -9,6 +9,9 @@ public abstract class TileStateChangerBase : MonoBehaviour
     [SerializeField]
     protected SpriteRenderer _renderer;
 
+    [SerializeField]
+    protected float _zPos = 1.0f;
+
     public virtual void Init()
     {
         int indexX = Random.Range(0, MapGenerater.S.mapWidth);
@@ -18,7 +21,12 @@ public abstract class TileStateChangerBase : MonoBehaviour
         if (targetTile)
         {
             transform.parent = targetTile.transform;
-            transform.localPosition = Vector3.zero;
+
+            Vector3 newPos = targetTile.transform.position;
+            newPos.z = _zPos;
+            targetTile.transform.position = newPos;
+
+            transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
         }
     }
 

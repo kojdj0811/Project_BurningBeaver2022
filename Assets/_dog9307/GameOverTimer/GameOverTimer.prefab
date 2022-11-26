@@ -44,3 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 869d9a01a505fc649903831fb9310a99, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _totalGameTime: 60
+  _burningStartTime: 45
+  OnBurningStart:
+    m_PersistentCalls:
+      m_Calls: []
+  OnGameTimeOver:
+    m_PersistentCalls:
+      m_Calls: []
+  _uiSample: {fileID: 0}
+  _endBGMTime: 1.5
