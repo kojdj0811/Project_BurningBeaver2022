@@ -5,10 +5,25 @@ using UnityEngine.Events;
 
 public class GameOverTimer : MonoBehaviour
 {
+    public static GameOverTimer S;
+    private void Awake()
+    {
+        if (S != null)
+        {
+            DestroyImmediate(gameObject);
+            return;
+        }
+
+        S = this;
+        DontDestroyOnLoad(gameObject);
+    }
+
     [SerializeField]
     private float _totalGameTime = 100.0f;
+    public float totalGametime { get { return _totalGameTime; } }
     [SerializeField]
     private float _burningStartTime = 80.0f;
+    public float burningStartTime { get { return _burningStartTime; } }
 
     private float _startTime;
 
