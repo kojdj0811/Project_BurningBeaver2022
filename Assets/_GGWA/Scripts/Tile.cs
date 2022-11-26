@@ -105,6 +105,8 @@ public class Tile : MonoBehaviour
         tileTargetSprite.sprite = MapGenerater.S.humanSprite;
 
         drawTargetAlphabetOrFrame();
+
+        UiManager.S.TotalTilePercentGauge -= 0.02f;
     }
 
     public void SetTiletoBeaver()
@@ -113,10 +115,17 @@ public class Tile : MonoBehaviour
         tileTargetSprite.sprite = MapGenerater.S.beaverSprite;
 
         drawTargetAlphabetOrFrame();
+
+        UiManager.S.TotalTilePercentGauge += 0.02f;
     }
 
     public void SetTiletoNeutrality()
     {
+        if (tileType == "beaver")
+            UiManager.S.TotalTilePercentGauge -= 0.02f;
+        else if (tileType == "human")
+            UiManager.S.TotalTilePercentGauge += 0.02f;
+
         tileType = "neutrality";
         tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
@@ -161,6 +170,8 @@ Debug.Log("[Human] To Neutrality");
 
         if (isHumanSuccessed)
         {
+            ComboFxManager.S.SpawnComboFx(false, $"{MapGenerater.S.humanCombo}");
+
             TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
             if (changer)
             {
@@ -210,6 +221,8 @@ Debug.Log("[Beaver] To Neutrality");
 
             if (isBeaverSuccessed)
             {
+                ComboFxManager.S.SpawnComboFx(true, $"{MapGenerater.S.beaverCombo}");
+
                 TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
                 if (changer)
                 {

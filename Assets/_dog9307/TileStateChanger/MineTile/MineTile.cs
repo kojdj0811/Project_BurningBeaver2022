@@ -40,6 +40,8 @@ public class MineTile : TileStateChangerBase
         for (int i = 0; i < rndCount; ++i)
         {
             int targetIndex = Random.Range(0, tileList.Count);
+            if (targetIndex <= 0) continue;
+
             Tile targetTile = tileList[targetIndex];
             if (targetTile)
             {
