@@ -81,7 +81,7 @@ public class Tile : MonoBehaviour
     {
         if (Input.GetKeyDown(currentKey) && tileType =="human")
         {
-             MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
+             //MapGenerater.S.setedTileList.Add(this); // 중립으로 변경
         }
         else if(Input.GetKeyDown(currentKey) && tileType == "neutralityColor")
         {
