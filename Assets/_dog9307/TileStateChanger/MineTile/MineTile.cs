@@ -43,16 +43,7 @@ public class MineTile : TileStateChangerBase
             Tile targetTile = tileList[targetIndex];
             if (targetTile)
             {
-                float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
-                char randomChar = (char)Random.Range(97, 123);
-
-                int offset = randomChar - 97;
-                KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-
-                targetTile.tileType = "neutrality";
-                targetTile.tileCurrentSprite = MapGenerater.S.neutralityColor;
-
-                targetTile.tileCurrentColor.color = Color.yellow;
+                targetTile.SetTiletoNeutrality();
                 //targetTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
 
                 if (_effectPrefab)
