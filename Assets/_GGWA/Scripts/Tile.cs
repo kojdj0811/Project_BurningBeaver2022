@@ -99,6 +99,31 @@ public class Tile : MonoBehaviour
         this.currentKey = currentKey;
     }
 
+    public void SetTiletoHuman()
+    {
+        tileType = "human";
+        tileTargetSprite.sprite = MapGenerater.S.humanSprite;
+
+        drawTargetAlphabetOrFrame();
+    }
+
+    public void SetTiletoBeaver()
+    {
+        tileType = "beaver";
+        tileTargetSprite.sprite = MapGenerater.S.beaverSprite;
+
+        drawTargetAlphabetOrFrame();
+    }
+
+    public void SetTiletoNeutrality()
+    {
+        tileType = "neutrality";
+        tileTargetSprite.sprite = MapGenerater.S.activedSprite;
+
+        drawTargetAlphabetOrFrame();
+    }
+
+
     void humanAction() // 플레이어가 타일을 클릭하면 되돌릴 함수 생성.
     {
         isHumanTried = true;
@@ -106,10 +131,7 @@ public class Tile : MonoBehaviour
         switch (tileType)
         {
             case "neutrality":
-                tileType = "human";
-                tileTargetSprite.sprite = MapGenerater.S.humanSprite;
-
-                drawTargetAlphabetOrFrame();
+                SetTiletoHuman();
 
                 if (isHumanSuccessed)
                     MapGenerater.S.humanCombo++;
@@ -119,10 +141,8 @@ public class Tile : MonoBehaviour
 Debug.Log("[Human] To Human");
                 break;
             case "beaver":
-                tileType = "neutrality";
-                tileTargetSprite.sprite = MapGenerater.S.activedSprite;
+                SetTiletoNeutrality();
 
-                drawTargetAlphabetOrFrame();
                 if (isHumanSuccessed)
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
@@ -159,9 +179,8 @@ Debug.Log("[Human] To Neutrality");
             switch (tileType)
             {
                 case "neutrality":
-                    tileType = "beaver";
-                    tileTargetSprite.sprite = MapGenerater.S.beaverSprite;
-                    drawTargetAlphabetOrFrame();
+                    SetTiletoBeaver();
+
                     // set 알파벳 random 함수 타입을 판단하여, 활성화시킬 개체, 타임을 받아서 설정하기
                     if(isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
@@ -174,10 +193,8 @@ Debug.Log("[Beaver] To beaver");
                     isBeaverSuccessed = false;
                     break;
                 case "human":
-                    tileType = "neutrality";
-                    tileTargetSprite.sprite = MapGenerater.S.activedSprite;
+                    SetTiletoNeutrality();
 
-                    drawTargetAlphabetOrFrame();
                     if(isBeaverSuccessed)
                         MapGenerater.S.beaverCombo++;
                     isBeaverSuccessed = true;

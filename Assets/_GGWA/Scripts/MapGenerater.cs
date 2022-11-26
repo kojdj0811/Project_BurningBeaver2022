@@ -126,10 +126,7 @@ public class MapGenerater : MonoBehaviour
                 setedTileList.Add(target);
                 unsetedTileList.Remove(target);
 
-                // dongdong
-                int offset = randomChar - 97;
-                KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
-                target.SetTile(randomChar, tempCode, activedSprite, tileSpawingTime, "neutrality");
+                target.SetTiletoNeutrality();
 
                 loopCount++;
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
@@ -154,7 +151,7 @@ public class MapGenerater : MonoBehaviour
                 var a = Instantiate(prefabTile, transform);
                 unsetedTileList.Add(a.GetComponent<Tile>());
 
-                a.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -i;
+                a.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -i - 1;
 
                 a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap, 0);
                 a.transform.localScale = new Vector3((frameSize / (float)mapWidth) * setFrameSizeFloat, (frameSize / (float)mapHeight) * setFrameSizeFloat, 0); 

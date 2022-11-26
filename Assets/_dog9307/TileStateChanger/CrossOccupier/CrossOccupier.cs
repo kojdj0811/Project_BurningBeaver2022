@@ -62,17 +62,11 @@ public class CrossOccupier : TileStateChangerBase
 
         if (owner == "beaver")
         {
-            targetTile.tileType = "beaver";
-            targetTile.tileCurrentSprite = MapGenerater.S.beaverSprite;
-
-            targetTile.tileTargetSprite.color = Color.gray;
+            targetTile.SetTiletoBeaver();
         }
         else if (owner == "human")
         {
-            targetTile.tileType = "human";
-            targetTile.tileCurrentSprite = MapGenerater.S.humanSprite;
-
-            targetTile.tileTargetSprite.color = Color.blue;
+            targetTile.SetTiletoHuman();
         }
 
         if (_effectPrefab)
