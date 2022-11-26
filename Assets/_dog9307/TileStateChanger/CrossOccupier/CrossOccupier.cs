@@ -52,10 +52,10 @@ public class CrossOccupier : TileStateChangerBase
 
         Tile targetTile = MapGenerater.S.tileContainer[targetIndexY, targetIndexX];
 
-        if (owner == "bieber")
+        if (owner == "beaver")
         {
-            targetTile.tileType = "bieber";
-            targetTile.tileCurrentSprite = MapGenerater.S.biberColor;
+            targetTile.tileType = "beaver";
+            targetTile.tileCurrentSprite = MapGenerater.S.beaverColor;
 
             targetTile.tileCurrentColor.color = Color.gray;
         }

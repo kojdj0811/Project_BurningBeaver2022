@@ -14,7 +14,7 @@ public class ComboUp : TileStateChangerBase
 
     public override void ChangeTiles(string owner)
     {
-        if (owner == "biber")
+        if (owner == "beaver")
         {
             // ºñ¹ö ÄÞº¸ ¾÷
         }

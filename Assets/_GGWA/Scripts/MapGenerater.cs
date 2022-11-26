@@ -12,7 +12,7 @@ public class MapGenerater : MonoBehaviour
     public Tile[,] tileContainer;
     public GameObject prefabTile;
 
-    public Sprite biberColor;
+    public Sprite beaverColor;
     public Sprite humanColor;
     public Sprite neutralityColor;
 
@@ -29,18 +29,18 @@ public class MapGenerater : MonoBehaviour
 
 
 
-    public int biberTileCount;
+    public int beaverTileCount;
     public int humanTileCount;
-    public int biberCombo;
+    public int beaverCombo;
     public int humanCombo;
 
     [SerializeField]
-    private int biberPenalty;
-    public int BiberPenalty {
-        get => biberPenalty;
+    private int beaverPenalty;
+    public int BeaverPenalty {
+        get => beaverPenalty;
         set {
-            biberCombo = 0;
-            biberPenalty = value;
+            beaverCombo = 0;
+            beaverPenalty = value;
         }
     }
 
@@ -69,11 +69,11 @@ public class MapGenerater : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
 
-        biberTileCount = 0;
+        beaverTileCount = 0;
         humanTileCount = 0;
-        biberCombo = 0;
+        beaverCombo = 0;
         humanCombo = 0;
-        BiberPenalty = 0;
+        BeaverPenalty = 0;
         HumanPenalty = 0;
 
         GenerateMap(mapWidth,mapHeight);
