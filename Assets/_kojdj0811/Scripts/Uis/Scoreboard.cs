@@ -14,14 +14,17 @@ public class Scoreboard : MonoBehaviour
     public float animationDelay2 = 0.2f;
     public float animationDelay3 = 2.0f;
 
+    public GameObject tileCount;
     public TextMeshProUGUI tileCount_top;
     public TextMeshProUGUI tileCount_buttom;
 
 
+    public GameObject combo;
     public TextMeshProUGUI combo_top;
     public TextMeshProUGUI combo_buttom;
 
 
+    public GameObject penalty;
     public TextMeshProUGUI penalty_top;
     public TextMeshProUGUI penalty_buttom;
 
@@ -33,14 +36,14 @@ public class Scoreboard : MonoBehaviour
 
 
     public void SetScoreboardValues (int leftPlayerTileCount, int rightPlayerTileCount, int leftPlayerComboScore, int rightPlayerComboScore, int leftPlayerPenaltyScore, int rightPlayerPenaltyScore) {
-        tileCount_top.text = $"x {leftPlayerTileCount}";
-        tileCount_buttom.text = $"x {rightPlayerTileCount}";
+        tileCount_top.text = $"{leftPlayerTileCount}";
+        tileCount_buttom.text = $"{rightPlayerTileCount}";
 
-        combo_top.text = $"{leftPlayerComboScore} Combo";
-        combo_buttom.text = $"{rightPlayerComboScore} Combo";
+        combo_top.text = $"{leftPlayerComboScore}";
+        combo_buttom.text = $"{rightPlayerComboScore}";
 
-        penalty_top.text = $"- {leftPlayerPenaltyScore} Penalty";
-        penalty_buttom.text = $"- {rightPlayerPenaltyScore} Penalty";
+        penalty_top.text = $"-{leftPlayerPenaltyScore}";
+        penalty_buttom.text = $"-{rightPlayerPenaltyScore}";
 
 
 
@@ -48,9 +51,11 @@ public class Scoreboard : MonoBehaviour
         tileCount_top.gameObject.SetActive(false);
         tileCount_buttom.gameObject.SetActive(false);
 
+        combo.SetActive(false);
         combo_top.gameObject.SetActive(false);
         combo_buttom.gameObject.SetActive(false);
 
+        penalty.SetActive(false);
         penalty_top.gameObject.SetActive(false);
         penalty_buttom.gameObject.SetActive(false);
     }
@@ -75,16 +80,19 @@ public class Scoreboard : MonoBehaviour
     private IEnumerator StartScoreboardAnimation_Coroutine () {
         yield return animDelay0;
 
+        tileCount.SetActive(true);
         tileCount_top.gameObject.SetActive(true);
         tileCount_buttom.gameObject.SetActive(true);
 
         yield return animDelay1;
 
+        combo.SetActive(true);
         combo_top.gameObject.SetActive(true);
         combo_buttom.gameObject.SetActive(true);
 
         yield return animDelay2;
  
+        penalty.SetActive(true);
         penalty_top.gameObject.SetActive(true);
         penalty_buttom.gameObject.SetActive(true);
 
