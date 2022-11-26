@@ -61,7 +61,9 @@ public class CrossOccupier : TileStateChangerBase
         float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
         char randomChar = (char)Random.Range(97, 123);
 
-        targetTile.SetTile(randomChar, targetSprite, tileSpawingTime, owner);
+        int offset = randomChar - 97;
+        KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+        targetTile.SetTile(randomChar, tempCode, targetSprite, tileSpawingTime, owner);
 
         if (_effectPrefab)
         {
