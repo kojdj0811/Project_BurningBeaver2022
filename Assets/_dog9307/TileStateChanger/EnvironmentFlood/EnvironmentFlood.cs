@@ -163,7 +163,9 @@ public class EnvironmentFlood : TileStateChangerBase
                     float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
                     char randomChar = (char)Random.Range(97, 123);
 
-                    currentTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    int offset = randomChar - 97;
+                    KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
                 }
             break;
 
@@ -175,7 +177,9 @@ public class EnvironmentFlood : TileStateChangerBase
                     float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
                     char randomChar = (char)Random.Range(97, 123);
 
-                    currentTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    int offset = randomChar - 97;
+                    KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+                    currentTile.SetTile(randomChar, tempCode, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
                 }
             break;
         }

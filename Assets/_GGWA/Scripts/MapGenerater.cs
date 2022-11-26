@@ -7,6 +7,7 @@ public class MapGenerater : MonoBehaviour
     public int mapHeight = 4;
     public int mapWidth = 4;
 
+    public int frameSize;
     public Tile[,] tileContainer;
     public GameObject prefabTile;
 
@@ -14,6 +15,11 @@ public class MapGenerater : MonoBehaviour
     public Sprite humanColor;
     public Sprite neutralityColor;
 
+
+    public Dictionary<KeyCode,char> keyCharPairs = new Dictionary<KeyCode,char>();
+    
+    List<Tile> setedTileList = new List<Tile>();
+    List<Tile> unsetedTileList = new List<Tile>();
 
     public float minTileSpawingTime;
     public float maxTileSpawingTime;
@@ -33,6 +39,52 @@ public class MapGenerater : MonoBehaviour
         GenerateMap(mapWidth,mapHeight);
     }
 
+    public void GetBackTile(Tile tile)
+    {
+        unsetedTileList.Add(tile);
+    }
+
+    private void Start()
+    {
+        Time.timeScale = 0;
+        StartCoroutine(SetRandomTile());
+    }
+
+    IEnumerator SetRandomTile()
+    {
+        while (true)
+        {
+            Debug.Log("실행");
+            int loopRandomInt = Random.Range(1, 5);
+            int loopDestInt = 0;
+
+            float tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
+            char randomChar = (char)Random.Range(97, 123);
+            while (loopDestInt < loopRandomInt)
+            {
+                Debug.Log($"루프 데스티네이션 값 : {loopDestInt}");
+
+                // dongdong
+                if (unsetedTileList.Count <= 0) break;
+
+                var target = unsetedTileList[Random.Range(0, unsetedTileList.Count)]; // exception 처리
+                setedTileList.Add(target);
+                unsetedTileList.Remove(target);
+
+                // dongdong
+                int offset = randomChar - 97;
+                KeyCode tempCode = (KeyCode)((int)KeyCode.A + offset);
+                target.SetTile(randomChar, tempCode, neutralityColor, tileSpawingTime, "neutrality");
+
+                loopDestInt++;
+                tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
+                randomChar = (char)Random.Range(97, 123);
+            }
+            yield return new WaitForSeconds(2f);
+        }
+    }
+
+    // 스타트 시에 
 
     public void GenerateMap(int width, int height)
     {
@@ -41,15 +93,23 @@ public class MapGenerater : MonoBehaviour
         {
             for (int j = 0; j < width; j++)
             {
-                tileContainer[i, j] = Instantiate(prefabTile, transform).GetComponent<Tile>();
-                
-                float tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
-                char randomChar = (char)Random.Range(97, 123);
-
-                tileContainer[i, j].SetTile(randomChar, biberColor, tileSpawingTime, "neutrality");
+                var a = Instantiate(prefabTile, transform);
+                unsetedTileList.Add(a.GetComponent<Tile>());
+                a.transform.position = new Vector3(frameSize/mapWidth * j, frameSize/mapHeight * i,0);
+                a.transform.localScale = new Vector3(frameSize / mapWidth, frameSize / mapHeight, 0);
+                // 포지션과 사이즈 설정
+                tileContainer[i, j] = a.GetComponent<Tile>();
             }
         }
-
     }
 
+
+    void SetKeyCharPair()
+    {
+        int alphabetCount = (int)('Z' - 'A');
+        for (int i = 0; i < alphabetCount; i++)
+        {
+            keyCharPairs.Add(KeyCode.A+i, (char)((int)('A')+i));
+        }
+    }
 }
