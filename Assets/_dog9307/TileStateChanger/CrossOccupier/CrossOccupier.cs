@@ -20,13 +20,14 @@ public class CrossOccupier : TileStateChangerBase
         Tile targetTile = MapGenerater.S.tileContainer[_indexY, _indexX];
         if (targetTile)
         {
+            targetTile.changer = this;
+
             transform.parent = targetTile.transform;
-
-            Vector3 newPos = targetTile.transform.position;
-            newPos.z = _zPos;
-            targetTile.transform.position = newPos;
-
+            transform.localPosition = Vector3.zero;
             transform.localScale = new Vector3(1.0f, 1.0f, 1.0f);
+            transform.parent = null;
+
+            transform.position += new Vector3(0.0f, 0.0f, -zPosition);
         }
 
         _isAlreadyUsed = false;

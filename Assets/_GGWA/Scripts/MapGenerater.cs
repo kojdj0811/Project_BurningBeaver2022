@@ -160,7 +160,7 @@ public class MapGenerater : MonoBehaviour
 
                 a.transform.GetChild(0).GetComponent<SpriteRenderer>().sortingOrder = -i - 1;
 
-                a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap+0.5f, 0);
+                a.transform.position = new Vector3(frameSize/(float)mapWidth * j- deafultGap, frameSize/(float)mapHeight * i- deafultGap+0.5f, 5.0f);
                 a.transform.localScale = new Vector3((frameSize / (float)mapWidth) * setFrameSizeFloat, (frameSize / (float)mapHeight) * setFrameSizeFloat, 0); 
                 // 포지션과 사이즈 설정
                 tileContainer[i, j] = a.GetComponent<Tile>();

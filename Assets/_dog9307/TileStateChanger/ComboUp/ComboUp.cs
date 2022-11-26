@@ -46,6 +46,9 @@ public class ComboUp : TileStateChangerBase
         if (_renderer)
             _renderer.gameObject.SetActive(false);
 
+        if (relativeTile)
+            relativeTile.changer = null;
+
         _isAlreadyUsed = true;
         GimmickManager.S.RemoveGimmick(this);
         Invoke("Destroy", 1.0f);

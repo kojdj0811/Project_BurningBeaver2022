@@ -45,6 +45,8 @@ public class Tile : MonoBehaviour
     [Range(0.0f, 1.0f)]
     public float u;
 
+    public TileStateChangerBase changer;
+
     private void Start()
     {
         tileHotkeyTextMesh = transform.GetChild(0).GetChild(0).GetComponent<TextMeshPro>();
@@ -217,7 +219,6 @@ public class Tile : MonoBehaviour
         {
             ComboFxManager.S.SpawnComboFx(false, $"{MapGenerater.S.humanCombo}");
 
-            TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
             if (changer)
             {
                 changer.ChangeTiles("human");
@@ -300,7 +301,6 @@ public class Tile : MonoBehaviour
             {
                 ComboFxManager.S.SpawnComboFx(true, $"{MapGenerater.S.beaverCombo}");
 
-                TileStateChangerBase changer = GetComponentInChildren<TileStateChangerBase>();
                 if (changer)
                 {
                     changer.ChangeTiles("beaver");

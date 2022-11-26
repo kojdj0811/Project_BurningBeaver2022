@@ -36,12 +36,13 @@ public class GameOverTimer : MonoBehaviour
     void Start()
     {
         _isGameEnd = true;
+
+        UiManager.S.TotalTilePercentGauge = 0.5f;
+        UiManager.S.gameObject.SetActive(false);
     }
 
     public void GameTimerStart()
     {
-        UiManager.S.TotalTilePercentGauge = 0.5f;
-
         _isAlreadyBurningStart = false;
         _isGameEnd = false;
 
@@ -72,16 +73,6 @@ public class GameOverTimer : MonoBehaviour
 
         float ratio = duringTime / _totalGameTime;
         UiManager.S.RemainedTimeGauge = 1.0f - ratio;
-    }
-
-    public void TestBurningStart()
-    {
-        print("Burning");
-    }
-
-    public void TestGameEnd()
-    {
-        UiManager.S.ActivePopup("TimeOver", true);
     }
 
     public void PlayBattleBGM()
