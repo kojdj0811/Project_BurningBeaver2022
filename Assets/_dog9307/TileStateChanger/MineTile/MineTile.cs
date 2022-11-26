@@ -12,9 +12,9 @@ public class MineTile : TileStateChangerBase
     [SerializeField]
     private GameObject _effectPrefab;
 
-    public override void ChangeTiles()
+    private List<Tile> FindTiles(string owner)
     {
-        List<Tile> tileList = new List<Tile>();
+        List<Tile> findList = new List<Tile>();
         for (int i = 0; i < MapGenerater.S.mapHeight; ++i)
         {
             for (int j = 0; j < MapGenerater.S.mapWidth; ++j)
@@ -23,22 +23,30 @@ public class MineTile : TileStateChangerBase
                 if (currentTile)
                 {
                     if (currentTile.tileType == owner)
-                        tileList.Add(currentTile);
+                        findList.Add(currentTile);
                 }
             }
         }
+
+        return findList;
+    }
+
+    public override void ChangeTiles(string owner)
+    {
+        List<Tile> tileList = FindTiles(owner);
+        if (tileList.Count <= 0) return;
 
         int rndCount = Random.Range(_minNeutralityCount, _maxNeutralityCount + 1);
         for (int i = 0; i < rndCount; ++i)
         {
             int targetIndex = Random.Range(0, tileList.Count);
+            if (targetIndex <= 0) continue;
+
             Tile targetTile = tileList[targetIndex];
             if (targetTile)
             {
-                float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
-                char randomChar = (char)Random.Range(97, 123);
-
-                targetTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                targetTile.SetTiletoNeutrality();
+                //targetTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
 
                 if (_effectPrefab)
                 {
@@ -49,5 +57,7 @@ public class MineTile : TileStateChangerBase
                 tileList.RemoveAt(targetIndex);
             }
         }
+
+        PlaySFX();
     }
 }

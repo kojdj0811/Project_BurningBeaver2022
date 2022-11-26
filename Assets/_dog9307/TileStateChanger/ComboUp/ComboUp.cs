@@ -8,25 +8,54 @@ public class ComboUp : TileStateChangerBase
     private int _comboCount = 3;
 
     [SerializeField]
-    private ParticleSystem _effectParticle;
-    [SerializeField]
-    private Animator _effectAnim;
+    private ParticleSystem _effect;
 
-    public override void ChangeTiles()
+    private bool _isAlreadyUsed = false;
+
+    public override void Init()
     {
-        if (owner == "biber")
+        base.Init();
+        _isAlreadyUsed = false;
+    }
+
+    public override void ChangeTiles(string owner)
+    {
+        if (_isAlreadyUsed) return;
+
+        if (owner == "beaver")
         {
             // ºñ¹ö ÄÞº¸ ¾÷
+            MapGenerater.S.beaverCombo += _comboCount;
         }
         else if (owner == "human")
         {
             // ¶ß¶Ç ÄÞº¸ ¾÷
+            MapGenerater.S.humanCombo += _comboCount;
         }
+        
+        PlaySFX();
 
-        if (_effectParticle)
-            _effectParticle.Play();
+        _isAlreadyUsed = true;
+    }
 
-        if (_effectAnim)
-            _effectAnim.SetTrigger("effectOn");
+    public override void DestroyChanger()
+    {
+        if (_effect)
+            _effect.Stop();
+
+        if (_renderer)
+            _renderer.gameObject.SetActive(false);
+
+        if (relativeTile)
+            relativeTile.changer = null;
+
+        _isAlreadyUsed = true;
+        GimmickManager.S.RemoveGimmick(this);
+        Invoke("Destroy", 1.0f);
+    }
+
+    public void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

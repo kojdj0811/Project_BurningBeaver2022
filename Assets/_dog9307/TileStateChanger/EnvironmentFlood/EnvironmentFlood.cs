@@ -79,6 +79,10 @@ public class EnvironmentFlood : TileStateChangerBase
         }
         _currentTargetTimeIndex = 0;
 
+        Vector3 scale = _effectAnim.transform.localScale;
+        scale.x = MapGenerater.S.tileContainer[0, 0].transform.lossyScale.x;
+        _effectAnim.transform.localScale = scale;
+
         _isTimerStart = false;
     }
 
@@ -103,6 +107,12 @@ public class EnvironmentFlood : TileStateChangerBase
         _gameStartingTime = Time.timeSinceLevelLoad;
     }
 
+    public void TimerEnd()
+    {
+        StopAllCoroutines();
+        _isTimerStart = false;
+    }
+
     public override void Init()
     {
         _currentDir = (FloodDir)Random.Range((int)FloodDir.NONE + 1, (int)FloodDir.END);
@@ -114,14 +124,16 @@ public class EnvironmentFlood : TileStateChangerBase
                 _currentOriginIndex = Random.Range(0, MapGenerater.S.mapWidth);
 
                 // 위치 변경
+                newPos.x = MapGenerater.S.tileContainer[0, _currentOriginIndex].transform.position.x;
             break;
 
             case FloodDir.LeftRight:
                 transform.rotation = Quaternion.Euler(new Vector3(0.0f, 0.0f, 90.0f));
                 _currentOriginIndex = Random.Range(0, MapGenerater.S.mapHeight);
-                
+
                 // 위치 변경
-            break;
+                newPos.y = MapGenerater.S.tileContainer[_currentOriginIndex, 0].transform.position.y;
+                break;
         }
         transform.position = newPos;
     }
@@ -139,19 +151,21 @@ public class EnvironmentFlood : TileStateChangerBase
         yield return new WaitForSeconds(_animTime * _animCount);
         _effectAnim.SetBool("isBlink", false);
 
-        ChangeTiles();
+        ChangeTiles("");
 
         if (_effect)
         {
+            PlaySFX();
+
             _effect.SpawnBeam();
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(1.0f);
 
             _effect.RemoveBeam();
         }
     }
 
-    public override void ChangeTiles()
+    public override void ChangeTiles(string owner)
     {
         switch (_currentDir)
         {
@@ -159,11 +173,8 @@ public class EnvironmentFlood : TileStateChangerBase
                 for (int i = 0; i < MapGenerater.S.mapHeight; i++)
                 {
                     Tile currentTile = MapGenerater.S.tileContainer[i, _currentOriginIndex];
-                
-                    float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
-                    char randomChar = (char)Random.Range(97, 123);
 
-                    currentTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    currentTile.SetTiletoNeutrality();
                 }
             break;
 
@@ -171,11 +182,8 @@ public class EnvironmentFlood : TileStateChangerBase
                 for (int i = 0; i < MapGenerater.S.mapWidth; i++)
                 {
                     Tile currentTile = MapGenerater.S.tileContainer[_currentOriginIndex, i];
-                
-                    float tileSpawingTime = Random.Range(MapGenerater.S.minTileSpawingTime, MapGenerater.S.maxTileSpawingTime);
-                    char randomChar = (char)Random.Range(97, 123);
 
-                    currentTile.SetTile(randomChar, MapGenerater.S.neutralityColor, tileSpawingTime, "neutrality");
+                    currentTile.SetTiletoNeutrality();
                 }
             break;
         }
