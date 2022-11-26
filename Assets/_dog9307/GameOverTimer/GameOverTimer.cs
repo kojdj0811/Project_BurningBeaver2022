@@ -33,9 +33,6 @@ public class GameOverTimer : MonoBehaviour
     public UnityEvent OnBurningStart;
     public UnityEvent OnGameTimeOver;
 
-    [SerializeField]
-    private UiSample _uiSample;
-
     void Start()
     {
         _isGameEnd = true;
@@ -43,11 +40,10 @@ public class GameOverTimer : MonoBehaviour
 
     public void GameTimerStart()
     {
+        UiManager.S.TotalTilePercentGauge = 0.5f;
+
         _isAlreadyBurningStart = false;
         _isGameEnd = false;
-
-        if (_uiSample)
-            _uiSample.animDuration = totalGametime;
 
         _startTime = Time.timeSinceLevelLoad;
     }
@@ -56,7 +52,9 @@ public class GameOverTimer : MonoBehaviour
     {
         if (_isGameEnd) return;
 
-        if (Time.timeSinceLevelLoad - _startTime >= _burningStartTime &&
+        float duringTime = Time.timeSinceLevelLoad - _startTime;
+
+        if (duringTime >= _burningStartTime &&
             !_isAlreadyBurningStart)
         {
             _isAlreadyBurningStart = true;
@@ -64,13 +62,16 @@ public class GameOverTimer : MonoBehaviour
                 OnBurningStart.Invoke();
         }
 
-        if (Time.timeSinceLevelLoad - _startTime >= _totalGameTime)
+        if (duringTime >= _totalGameTime)
         {
             _isGameEnd = true;
 
             if (OnGameTimeOver != null)
                 OnGameTimeOver.Invoke();
         }
+
+        float ratio = duringTime / _totalGameTime;
+        UiManager.S.RemainedTimeGauge = ratio;
     }
 
     public void TestBurningStart()
@@ -104,5 +105,20 @@ public class GameOverTimer : MonoBehaviour
     public void EndBGMOff()
     {
         SoundPlayer.S.GetComponent<AudioSource>().Stop();
+    }
+
+    public void AppearScoreBoard()
+    {
+        int leftPlayerTileCount = MapGenerater.S.beaverTileCount;
+        int rightPlayerTileCount = MapGenerater.S.humanTileCount;
+        int leftPlayerComboScore = MapGenerater.S.beaverCombo;
+        int rightPlayerComboScore = MapGenerater.S.humanCombo;
+        int leftPlayerPenaltyScore = MapGenerater.S.BeaverPenalty;
+        int rightPlayerPenaltyScore = MapGenerater.S.HumanPenalty;
+        UiManager.S.SetScoreboardValues(leftPlayerTileCount, rightPlayerTileCount, leftPlayerComboScore, rightPlayerComboScore, leftPlayerPenaltyScore, rightPlayerPenaltyScore);
+        UiManager.S.SetWinnerboardValues(true);
+
+        UiManager.S.ActivePopup("TimeOver", true);
+        UiManager.S.StartTimeOverAnimation();
     }
 }
