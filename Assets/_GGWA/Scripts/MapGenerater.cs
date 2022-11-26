@@ -1,3 +1,4 @@
+using System.Security;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -26,6 +27,37 @@ public class MapGenerater : MonoBehaviour
 
     public static MapGenerater S;
 
+
+
+    public int biberTileCount;
+    public int humanTileCount;
+    public int biberCombo;
+    public int humanCombo;
+
+    [SerializeField]
+    private int biberPenalty;
+    public int BiberPenalty {
+        get => biberPenalty;
+        set {
+            biberCombo = 0;
+            biberPenalty = value;
+        }
+    }
+
+    [SerializeField]
+    private int humanPenalty;
+    public int HumanPenalty {
+        get => humanPenalty;
+        set {
+            humanCombo = 0;
+            humanPenalty = value;
+        }
+    }
+
+
+
+
+
     void Awake()
     {
         if (S != null) {
@@ -35,6 +67,14 @@ public class MapGenerater : MonoBehaviour
 
         S = this;
         DontDestroyOnLoad(gameObject);
+
+
+        biberTileCount = 0;
+        humanTileCount = 0;
+        biberCombo = 0;
+        humanCombo = 0;
+        BiberPenalty = 0;
+        HumanPenalty = 0;
 
         GenerateMap(mapWidth,mapHeight);
     }
