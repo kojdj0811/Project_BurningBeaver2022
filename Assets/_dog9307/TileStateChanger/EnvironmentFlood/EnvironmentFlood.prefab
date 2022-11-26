@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb5e08e1c81fbc47abae80a26ab8d00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _sfxName: waterimpact02
   _mask: {fileID: 5279263430244022121}
   _minFloodCount: 1
   _maxFloodCount: 2
