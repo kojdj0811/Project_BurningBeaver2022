@@ -43,6 +43,9 @@ public class UiSample : MonoBehaviour
         }
 
 
+        if(Input.GetKeyDown(KeyCode.DownArrow)) {
+            ComboFxManager.S.SpawnComboFx(Random.value > 0.5f ? true : false, Random.Range(0, 20).ToString());
+        }
 
 
 
