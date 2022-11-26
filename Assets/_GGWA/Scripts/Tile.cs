@@ -130,7 +130,7 @@ public class Tile : MonoBehaviour
         }
 
         tileCurrentColor.color = Color.Lerp(tileDefaultColor, Color.white, u);
-        tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.white, u);
+        tileHotkeyTextMesh.color = Color.Lerp(tileDefaultColor, Color.black, u);
     }
 
 

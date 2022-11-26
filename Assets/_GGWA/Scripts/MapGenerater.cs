@@ -18,7 +18,7 @@ public class MapGenerater : MonoBehaviour
 
     public Dictionary<KeyCode,char> keyCharPairs = new Dictionary<KeyCode,char>();
     
-    List<Tile> setedTileList = new List<Tile>();
+    public List<Tile> setedTileList = new List<Tile>();
     List<Tile> unsetedTileList = new List<Tile>();
 
     public float minTileSpawingTime;
@@ -59,7 +59,6 @@ public class MapGenerater : MonoBehaviour
             int loopDestInt = 0;
 
             float tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
-            char randomChar = (char)Random.Range(97, 123);
             while (loopDestInt < loopRandomInt)
             {
                 Debug.Log($"루프 데스티네이션 값 : {loopDestInt}");
@@ -68,7 +67,10 @@ public class MapGenerater : MonoBehaviour
                 setedTileList.Add(target);
                 unsetedTileList.Remove(target);
 
-                target.SetTile(randomChar, neutralityColor, tileSpawingTime, "neutrality");
+
+            char randomChar = (char)Random.Range('A', 'Z'+1);
+                int alphaIndex = (int)('A') - randomChar;
+                target.SetTile(randomChar, KeyCode.A + alphaIndex, neutralityColor, tileSpawingTime, "neutrality");
                 loopDestInt++;
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
                 randomChar = (char)Random.Range(97, 123);
