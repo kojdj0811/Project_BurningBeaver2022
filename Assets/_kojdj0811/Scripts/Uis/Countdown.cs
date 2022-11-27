@@ -47,6 +47,6 @@ public class Countdown : MonoBehaviour
 
     public void StartGame () {
         startbutton.onClick.Invoke();
-        gameObject.SetActive(true);
+        gameObject.SetActive(false);
     }
 }

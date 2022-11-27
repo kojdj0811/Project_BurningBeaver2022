@@ -22,8 +22,8 @@ public class IntroCutSceneEndState : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (_relativeObject)
-            _relativeObject.SetActive(true);
+        GameObject.FindObjectOfType<ReadyToPlay>(true).gameObject.SetActive(true);
+        GameObject.FindObjectOfType<IntroCutScene>(true).gameObject.SetActive(false);
     }
 
     // OnStateMove is called right after Animator.OnAnimatorMove()

@@ -8,6 +8,7 @@ public class Winnerboard : MonoBehaviour
 {
     public float animationDelay0 = 0.75f;
     public TextMeshProUGUI playerName;
+    public Image medalImage;
     public Image leftPlayerImage;
     public Image rightPlayerImage;
     public Button retryButton;
@@ -22,6 +23,7 @@ public class Winnerboard : MonoBehaviour
         playerName.text = isLeftPlayerWinnder ? "Beaver" : "Justin";
 
         playerName.gameObject.SetActive(false);
+        medalImage.gameObject.SetActive(false);
         leftPlayerImage.gameObject.SetActive(false);
         rightPlayerImage.gameObject.SetActive(false);
 
@@ -48,6 +50,7 @@ public class Winnerboard : MonoBehaviour
 
         SoundPlayer.S.PlaySfx("Winner_Appear");
 
+        medalImage.gameObject.SetActive(true);
         leftPlayerImage.gameObject.SetActive(isLeftPlayerWinnder);
         rightPlayerImage.gameObject.SetActive(!isLeftPlayerWinnder);
 

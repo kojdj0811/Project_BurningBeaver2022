@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class ReadyToPlay : MonoBehaviour
 {
@@ -12,6 +14,8 @@ public class ReadyToPlay : MonoBehaviour
     public Image keyboardReadyButtonImage;
     public Sprite keyboardReadySprite_wait;
     public Sprite keyboardReadySprite_ready;
+    public TextMeshProUGUI keyboardReadyText;
+
 
 
     public GameObject countdown;
@@ -33,6 +37,7 @@ public class ReadyToPlay : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.Return)) {
             keyboardReadyButtonImage.sprite = keyboardReadySprite_ready;
+            keyboardReadyText.text = "READY!";
         }
 
         if(keyboardReadyButtonImage.sprite == keyboardReadySprite_ready && !mouseReadyButton.interactable) {
