@@ -66,6 +66,23 @@ public class MapGenerater : MonoBehaviour
 
     public bool isGameEnd { get; set; }
 
+    [Header("뜨또 효과음 리스트")]
+    public string[] _humanSuccessSfxes;
+    public string[] _humanFailSfxes;
+
+    public string humanSuccessSfxName { get { return _humanSuccessSfxes[Random.Range(0, _humanSuccessSfxes.Length)]; } }
+    public string humanFailSfxName { get { return _humanFailSfxes[Random.Range(0, _humanFailSfxes.Length)]; } }
+
+    [Header("비버 효과음 리스트")]
+    public string[] _beaverSuccessSfxes;
+    public string[] _beaverFailSfxes;
+
+    public string beaverSuccessSfxName { get { return _beaverSuccessSfxes[Random.Range(0, _beaverSuccessSfxes.Length)]; } }
+    public string beaverFailSfxName { get { return _beaverFailSfxes[Random.Range(0, _beaverFailSfxes.Length)]; } }
+
+    [Header("활성화 효과음")]
+    public string _tileActivateSfxName;
+
     void Awake()
     {
         if (S != null) {
@@ -139,6 +156,9 @@ public class MapGenerater : MonoBehaviour
                 tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
                 randomChar = (char)Random.Range(97, 123);
             }
+
+            SoundPlayer.S.PlaySfx("Tile_activate");
+
             yield return new WaitForSeconds(tileGererateTerm);
         }
     }
