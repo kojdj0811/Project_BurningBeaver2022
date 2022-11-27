@@ -48,6 +48,8 @@ public class Tile : MonoBehaviour
 
     public TileStateChangerBase changer;
 
+    public static bool isGameStart = false;
+
     private void Start()
     {
         tileHotkeyTextMesh = transform.GetChild(0).GetChild(0).GetComponent<TextMeshPro>();
@@ -150,7 +152,6 @@ public class Tile : MonoBehaviour
         MapGenerater.S.unsetedTileList.Add(this);
     }
 
-
     void humanAction() // 플레이어가 타일을 클릭하면 되돌릴 함수 생성.
     {
         isHumanTried = true;
@@ -220,12 +221,16 @@ public class Tile : MonoBehaviour
         {
             ComboFxManager.S.SpawnComboFx(false, $"{MapGenerater.S.humanCombo}");
 
+            SoundPlayer.S.PlaySfx(MapGenerater.S.humanSuccessSfxName);
+
             if (changer)
             {
                 changer.ChangeTiles("human");
                 changer.DestroyChanger();
             }
         }
+        else
+            SoundPlayer.S.PlaySfx(MapGenerater.S.humanFailSfxName);
     }
 
     void BeaverAction()
@@ -302,12 +307,16 @@ public class Tile : MonoBehaviour
             {
                 ComboFxManager.S.SpawnComboFx(true, $"{MapGenerater.S.beaverCombo}");
 
+                SoundPlayer.S.PlaySfx(MapGenerater.S.beaverSuccessSfxName);
+
                 if (changer)
                 {
                     changer.ChangeTiles("beaver");
                     changer.DestroyChanger();
                 }
             }
+            else
+                SoundPlayer.S.PlaySfx(MapGenerater.S.beaverFailSfxName);
         }
     }
 
@@ -317,6 +326,8 @@ public class Tile : MonoBehaviour
 
     private void Update()
     {
+        if (!isGameStart) return;
+
         u = (Time.timeSinceLevelLoad - spwanedTime) / spwaningTime;
 
 
@@ -352,6 +363,8 @@ public class Tile : MonoBehaviour
 
 
     private void LateUpdate() {
+        if (!isGameStart) return;
+
         if (_isSetTiled) // 타일이 완전히 활성화 되기 전 선택 제한
         {
             if (isBeaverTried && !isBeaverSuccessed)
@@ -393,6 +406,8 @@ public class Tile : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
+        if (!isGameStart) return;
+
         // 활성화 배열 한번 탐색하는...
 
         for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)

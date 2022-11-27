@@ -37,8 +37,12 @@ public class Winnerboard : MonoBehaviour
     }
 
     private IEnumerator StartWinnerboardAnimation_Coroutine () {
+        SoundPlayer.S.PlaySfx("Winner_DrumRoll");
+
         yield return animDelay0;
-        
+
+        SoundPlayer.S.PlaySfx("Winner_Appear");
+
         leftPlayerImage.gameObject.SetActive(isLeftPlayerWinnder);
         rightPlayerImage.gameObject.SetActive(!isLeftPlayerWinnder);
 

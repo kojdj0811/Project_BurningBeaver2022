@@ -28,25 +28,29 @@ public class GameOverTimer : MonoBehaviour
     private float _startTime;
 
     private bool _isAlreadyBurningStart;
-    private bool _isGameEnd;
+    private bool _isGameEnd = true;
 
     public UnityEvent OnBurningStart;
     public UnityEvent OnGameTimeOver;
 
     void Start()
     {
-        _isGameEnd = true;
-
-        UiManager.S.TotalTilePercentGauge = 0.5f;
-        UiManager.S.gameObject.SetActive(false);
+        GameTimerStart();
+        //_isGameEnd = true;
+        //UiManager.S.TotalTilePercentGauge = 0.5f;
+        //UiManager.S.gameObject.SetActive(false);
     }
 
     public void GameTimerStart()
     {
+        UiManager.S.TotalTilePercentGauge = 0.5f;
+
         _isAlreadyBurningStart = false;
         _isGameEnd = false;
 
         _startTime = Time.timeSinceLevelLoad;
+
+        Tile.isGameStart = true;
     }
 
     void Update()
@@ -66,6 +70,8 @@ public class GameOverTimer : MonoBehaviour
         if (duringTime >= _totalGameTime)
         {
             _isGameEnd = true;
+
+            Tile.isGameStart = false;
 
             if (OnGameTimeOver != null)
                 OnGameTimeOver.Invoke();
