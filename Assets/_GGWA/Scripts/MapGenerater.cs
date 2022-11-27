@@ -125,7 +125,6 @@ public class MapGenerater : MonoBehaviour
         isGameEnd = false;
         while (!isGameEnd) // true 대신 조건을 설정하기
         {
-            Debug.Log("실행");
             int updateTileCount;
             if (Time.timeSinceLevelLoad - startTime >= limitTimeToRandom)
             {
@@ -135,8 +134,7 @@ public class MapGenerater : MonoBehaviour
             {
                 updateTileCount = 1;
             }
-            Debug.Log(updateTileCount);
-            Debug.Log(startTime + "");
+
             int loopCount = 0;
 
             float tileSpawingTime = Random.Range(minTileSpawingTime, maxTileSpawingTime);
@@ -187,14 +185,4 @@ public class MapGenerater : MonoBehaviour
             }
         }
     }
-
-
-    //void SetKeyCharPair()
-    //{
-    //    int alphabetCount = (int)('Z' - 'A');
-    //    for (int i = 0; i < alphabetCount; i++)
-    //    {
-    //        keyCharPairs.Add(KeyCode.A+i, (char)((int)('A')+i));
-    //    }
-    //}
 }

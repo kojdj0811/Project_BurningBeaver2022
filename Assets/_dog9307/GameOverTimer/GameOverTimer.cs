@@ -113,7 +113,12 @@ public class GameOverTimer : MonoBehaviour
         int leftPlayerPenaltyScore = MapGenerater.S.BeaverPenalty;
         int rightPlayerPenaltyScore = MapGenerater.S.HumanPenalty;
         UiManager.S.SetScoreboardValues(leftPlayerTileCount, rightPlayerTileCount, leftPlayerComboScore, rightPlayerComboScore, leftPlayerPenaltyScore, rightPlayerPenaltyScore);
-        UiManager.S.SetWinnerboardValues(true);
+
+
+        int beaverTotalScore = leftPlayerTileCount + leftPlayerComboScore - leftPlayerPenaltyScore;
+        int humanTotalScore = rightPlayerTileCount + rightPlayerComboScore - rightPlayerPenaltyScore;
+
+        UiManager.S.SetWinnerboardValues(beaverTotalScore >= humanTotalScore);
 
         UiManager.S.ActivePopup("TimeOver", true);
         UiManager.S.StartTimeOverAnimation();

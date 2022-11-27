@@ -116,8 +116,6 @@ public class Tile : MonoBehaviour
         tileTargetSprite.sprite = MapGenerater.S.humanSprite;
 
         drawTargetAlphabetOrFrame();
-
-        UiManager.S.TotalTilePercentGauge -= 0.02f;
     }
 
     public void SetTiletoBeaver()
@@ -126,17 +124,10 @@ public class Tile : MonoBehaviour
         tileTargetSprite.sprite = MapGenerater.S.beaverSprite;
 
         drawTargetAlphabetOrFrame();
-
-        UiManager.S.TotalTilePercentGauge += 0.02f;
     }
 
     public void SetTiletoNeutrality() // 초원 생성
     {
-        if (tileType == "beaver")
-            UiManager.S.TotalTilePercentGauge -= 0.02f;
-        else if (tileType == "human")
-            UiManager.S.TotalTilePercentGauge += 0.02f;
-
         tileType = "neutrality";
         tileTargetSprite.sprite = MapGenerater.S.activedSprite;
 
@@ -195,8 +186,6 @@ public class Tile : MonoBehaviour
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
-                //tileCurrentColor.color = Color.blue;
-                Debug.Log("[Human] To Human");
                 break;
             case "beaver":
                 SetTiletoDesert();
@@ -205,8 +194,6 @@ public class Tile : MonoBehaviour
                     MapGenerater.S.humanCombo++;
                 isHumanSuccessed = true;
 
-                //tileCurrentColor.color = Color.yellow;
-                Debug.Log("[Human] To Desert");
                 break;
             case "human":
                 isHumanSuccessed = false;
@@ -365,18 +352,46 @@ public class Tile : MonoBehaviour
     private void LateUpdate() {
         if (!isGameStart) return;
 
+
+
+        if (isBeaverTried || isHumanTried) {
+            MapGenerater.S.beaverTileCount = 0;
+            MapGenerater.S.humanTileCount = 0;
+
+            for (int i = 0; i < MapGenerater.S.setedTileList.Count; i++)
+            {
+                if (MapGenerater.S.setedTileList[i].tileType == "beaver")
+                {
+                    MapGenerater.S.beaverTileCount++;
+                }
+                else if (MapGenerater.S.setedTileList[i].tileType == "human")
+                {
+                    MapGenerater.S.humanTileCount++;
+                }
+            }
+
+            if(MapGenerater.S.beaverTileCount == 0)
+                UiManager.S.TotalTilePercentGauge = 1.0f;
+            else if(MapGenerater.S.humanTileCount == 0)
+                UiManager.S.TotalTilePercentGauge = 0.0f;
+            else {
+                float u = (float)MapGenerater.S.beaverTileCount / (float)(MapGenerater.S.beaverTileCount + (float)MapGenerater.S.humanTileCount);
+                UiManager.S.TotalTilePercentGauge = u;
+            }
+
+            Debug.Log($"{UiManager.S.TotalTilePercentGauge}, {MapGenerater.S.beaverTileCount}, {MapGenerater.S.humanTileCount}");
+        }
+
         if (_isSetTiled) // 타일이 완전히 활성화 되기 전 선택 제한
         {
             if (isBeaverTried && !isBeaverSuccessed)
             {
                 MapGenerater.S.BeaverPenalty++;
-                Debug.Log("[Beaver] : Failed!!!");
             }
 
             if (isHumanTried && !isHumanSuccessed)
             {
                 MapGenerater.S.HumanPenalty++;
-                Debug.Log("[Human] : Failed!!!");
             }
 
 
