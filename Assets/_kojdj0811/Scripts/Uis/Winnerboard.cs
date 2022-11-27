@@ -36,6 +36,11 @@ public class Winnerboard : MonoBehaviour
         StartCoroutine(StartWinnerboardAnimation_Coroutine());
     }
 
+
+    public void ReloadScene () {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
     private IEnumerator StartWinnerboardAnimation_Coroutine () {
         yield return animDelay0;
         
