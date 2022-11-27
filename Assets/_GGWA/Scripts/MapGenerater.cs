@@ -185,14 +185,4 @@ public class MapGenerater : MonoBehaviour
             }
         }
     }
-
-
-    //void SetKeyCharPair()
-    //{
-    //    int alphabetCount = (int)('Z' - 'A');
-    //    for (int i = 0; i < alphabetCount; i++)
-    //    {
-    //        keyCharPairs.Add(KeyCode.A+i, (char)((int)('A')+i));
-    //    }
-    //}
 }

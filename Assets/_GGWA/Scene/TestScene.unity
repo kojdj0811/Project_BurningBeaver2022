@@ -3110,7 +3110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationDelay0: 5
   playerName: {fileID: 159913868}
-  medalImage: {fileID: 0}
+  medalImage: {fileID: 1960974495}
   leftPlayerImage: {fileID: 1304545294}
   rightPlayerImage: {fileID: 410941679}
   retryButton: {fileID: 1354921753}
@@ -15232,6 +15232,14 @@ PrefabInstance:
     - target: {fileID: 7654646942478468938, guid: 0e8a03fb1d290ff4787e6b84c8b3dd3c, type: 3}
       propertyPath: _uiSample
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654646942478468938, guid: 0e8a03fb1d290ff4787e6b84c8b3dd3c, type: 3}
+      propertyPath: _totalGameTime
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654646942478468938, guid: 0e8a03fb1d290ff4787e6b84c8b3dd3c, type: 3}
+      propertyPath: _burningStartTime
+      value: 45
       objectReference: {fileID: 0}
     - target: {fileID: 7654646942478468938, guid: 0e8a03fb1d290ff4787e6b84c8b3dd3c, type: 3}
       propertyPath: OnBurningStart.m_PersistentCalls.m_Calls.Array.size
